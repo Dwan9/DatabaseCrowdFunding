@@ -25,6 +25,12 @@ CREATE TABLE `user` (
 -- Table structure for `project`
 -- ----------------------------
 DROP TABLE IF EXISTS `project`;
+CREATE SEQUENCE psequence
+INCREMENT BY 1
+START WITH 1000
+MAXVALUE 9999
+NOCACHE
+NOCYCLE;
 CREATE TABLE `project` (
   `pid` INT NOT NULL,
   `uname` varchar(40) NOT NULL,
