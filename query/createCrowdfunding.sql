@@ -40,7 +40,7 @@ CREATE TABLE `project` (
   `maxAmount` decimal(10,2) NOT NULL,
   `curAmount` decimal(10,2) NULL,
   `pname` varchar(40) DEFAULT NULL,
-  `status` enum('WAIT', 'START', 'FAIL', 'END') DEFAULT NULL,
+  `status` enum('FUNDING', 'FUNDED', 'FAIL', 'FULL') DEFAULT NULL,
   `rate` decimal(10,2) DEFAULT NULL,
   `description` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`),
