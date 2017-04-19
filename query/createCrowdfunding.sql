@@ -76,7 +76,7 @@ CREATE TABLE `sponsor` (
   `uname` varchar(40) NOT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
   `rate` INT NULL,
-  `pledgeStatus` enum('CHARGED', 'WAIT') DEFAULT NULL,
+  `pledgeStatus` enum('CHARGED', 'WAIT', 'CLOSED') DEFAULT NULL,
   -- Discuss to a waiting project
   `discuss` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`,`uname`),
