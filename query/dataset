@@ -1,0 +1,48 @@
+user
+  dua, dua@x.com,1234,4000 0000 0000 0001
+  wang, wang@x.com, 2345, 4000 0000 0000 1110
+  zhu, zhu@x.com, 3456, 4101 0000 0000 0001
+  jin, jin@x.com, 4567, 4010 9987 1123 5864
+  tian, tian@x.com, 5678, 4100 0593 9874 1123
+  zhang, zhang@x.com, 6789, 4000 3929 6849 1234
+  hu, hu@x.com, 7890, 4194 1000 1234 6664
+  han, han@x.com, 8901, 4123 9980 1234 9868
+  
+project
+  zhu, 04-17-2017, 09-17-2017, 1000, 5000, 50, the dog king board game, FUNDING, strategy game 
+  dua, 05-01-2017, 06-30-2017, 10000, 20000, 10500, Brooklyn Bridge alblem, FUNDED, jazz music
+  zhang, 10-20-2016, 02-20-2017, 5000, 150000, 3000, 2b model, FAILED, model game
+  hu, 01-30-2017, 06-15-2017, 2000, 5000, 0, a jazz musician, FUNDING, oil painting
+  han, 10-01-2016, 04-16-2017, 50000, 150000, 150, Ultra Era Concert, FAILED, jazz pop rock blues folk 
+  dua, 06-01-2017, 04-01-2019, 20000000, 100000000, 50000, The golden cudgel, FUNDING, skyscraper building design
+  hu, 03-12-2017, 08-01-2017, 5000, 10000, 10000, aerial fight club, FULL, sculpture
+  zhang, ,07-31-2017, 3000, 6000, ,Dawn of Rapsberries, FUNDING, prose worksD
+  
+progress
+1002, 0.2
+1002, 0.5
+1002, 0.51
+1007, 0.1
+1007, 0.2
+
+sponser
+  1001, jin, 50, ,  WAIT
+  1002, jin, 500, , charged
+  1003, jin, 3000, , closed
+  1005, jin, 150, , WAIT
+  1006, jin, 10000, WAIT
+  1007, jin, 2000, CHARGED
+  1002, tian, 5000, CHARGED
+  1002, zhang, 5000, CHARGED
+  1006, hu, 15000, WAIT
+  1006, zhu, 25000, WAIT
+  1007, han, 3000, CHARGED
+  1007, dua, 5000, charged
+  
+follower
+zhu, jin
+dua, jin
+zhang, jin
+dua, tian
+zhang, hu,
+han, zhang
