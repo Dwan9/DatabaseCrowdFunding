@@ -58,6 +58,8 @@ set `status`='FAIL'
 where endDate<=current_timestamp and `status`='FUNDING';
 end;
 /
+-- kouqian trigger
+
 -- insert sponsor.rate->project.rate=select avg(rate) from sponsor where pid = group by pid
 drop trigger if exists updateRate;
 delimiter /
