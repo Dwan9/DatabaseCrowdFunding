@@ -12,7 +12,7 @@ having c>3) as T;
 
 -- query6
 insert into project(`pid`, `uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`)
-values (psequence.NEXTVAL, 'Duan', current_timestamp, '2018-01-01 00:00:00', 10000, 50000, 0, 'New Jazz Album', 'WAIT');
+values (NULL, 'Duan', current_timestamp, '2018-01-01 00:00:00', 10000, 50000, 0, 'New Jazz Album', 'WAIT');
 
 -- query8
 -- insert new sponsor->increase curAmount
