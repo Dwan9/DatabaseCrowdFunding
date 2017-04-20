@@ -31,9 +31,9 @@ CREATE TABLE `project` (
   `uname` varchar(40) NOT NULL,
   `startDate` DATE NOT NULL,
   `endDate` DATE NOT NULL,
-  `minAmount` decimal(10,2) NOT NULL,
-  `maxAmount` decimal(10,2) NOT NULL,
-  `curAmount` decimal(10,2) NULL,
+  `minAmount` decimal(15,2) NOT NULL,
+  `maxAmount` decimal(15,2) NOT NULL,
+  `curAmount` decimal(15,2) NULL,
   `pname` varchar(40) DEFAULT NULL,
   `status` enum('FUNDING', 'FUNDED', 'FAIL', 'FULL') DEFAULT NULL,
   `rate` decimal(10,2) DEFAULT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `project` (
 DROP TABLE IF EXISTS `progress`;
 CREATE TABLE `progress` (
   `pid` INT NOT NULL,
-  `version` INT NOT NULL,
+  `version` decimal(10,2) NOT NULL,
   `description` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`,`version`),
   FOREIGN KEY (`pid`) REFERENCES `project` (`pid`)

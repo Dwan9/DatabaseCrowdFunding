@@ -12,10 +12,11 @@ having c>3) as T;
 
 -- query6
 insert into project(`pid`, `uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`)
-values (NULL, 'Duan', current_timestamp, '2018-01-01 00:00:00', 10000, 50000, 0, 'New Jazz Album', 'WAIT');
+values (NULL, 'Duan', current_timestamp, '2018-01-01', 10000, 50000, 0, 'New Jazz Album', 'FUNDING');
 
 -- query8
 -- insert new sponsor->increase curAmount
+-- drop trigger if exists updatePamount;
 delimiter /
 drop trigger if exists updatePamount;
 /
@@ -31,8 +32,10 @@ end;
 
 -- reach minAmount->project.status=FUNDED
 -- reach maxAmount->project.status=FULL
-drop trigger if exists updatePstatus;
+
 delimiter /
+drop trigger if exists updatePstatus;
+/
 create trigger updatePstatus before update on project
 for each row begin
 if new.curAmount>new.minAmount and new.`status`='FUNDING' then 
@@ -45,9 +48,10 @@ end;
 /
 
 -- event current day=endDate and status=FUNDING->stauts=FAIL
-drop event if exists projectFail;
 SET GLOBAL event_scheduler = 1; 
 delimiter /
+drop event if exists projectFail;
+/
 create event projectFail
 on schedule every 1 day
 ON  COMPLETION  PRESERVE  
@@ -61,8 +65,9 @@ end;
 -- kouqian trigger
 
 -- insert sponsor.rate->project.rate=select avg(rate) from sponsor where pid = group by pid
-drop trigger if exists updateRate;
 delimiter /
+drop trigger if exists updateRate;
+/
 create trigger updateRate after update on sponsor
 for each row begin
 declare newrate decimal(10,2);
