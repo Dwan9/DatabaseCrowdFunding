@@ -41,8 +41,7 @@ CREATE TABLE `project` (
   `tags` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`),
   FOREIGN KEY (`uname`) REFERENCES `user` (`uname`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-AUTO_INCREMENT=1000;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
 -- ----------------------------
 -- Records of project
 -- ----------------------------
