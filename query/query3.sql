@@ -3,8 +3,8 @@
  in the past,sorted by the total amount they have successfully pledged (meaning, money that
  was actually charged). */
  
-select sponsor.uname
+select distinct sponsor.uname
 from sponsor, project
 where pledgeStatus = 'CHARGED' and
-	(project.tag like '%jazz%' or pname like '%jazz%')
+	(project.tags like '%jazz%' or pname like '%jazz%')
 order by sponsor.amount;
