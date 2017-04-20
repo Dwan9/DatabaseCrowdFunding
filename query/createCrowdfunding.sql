@@ -25,17 +25,12 @@ CREATE TABLE `user` (
 -- Table structure for `project`
 -- ----------------------------
 DROP TABLE IF EXISTS `project`;
-CREATE SEQUENCE psequence
-INCREMENT BY 1
-START WITH 1000
-MAXVALUE 9999
-NOCACHE
-NOCYCLE;
+
 CREATE TABLE `project` (
-  `pid` INT NOT NULL,
+  `pid` INT NOT NULL AUTO_INCREMENT,
   `uname` varchar(40) NOT NULL,
-  `startDate` DATETIME NOT NULL,
-  `endDate` DATETIME NOT NULL,
+  `startDate` DATE NOT NULL,
+  `endDate` DATE NOT NULL,
   `minAmount` decimal(10,2) NOT NULL,
   `maxAmount` decimal(10,2) NOT NULL,
   `curAmount` decimal(10,2) NULL,
@@ -43,10 +38,11 @@ CREATE TABLE `project` (
   `status` enum('FUNDING', 'FUNDED', 'FAIL', 'FULL') DEFAULT NULL,
   `rate` decimal(10,2) DEFAULT NULL,
   `description` varchar(40) DEFAULT NULL,
+  `tags` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`),
   FOREIGN KEY (`uname`) REFERENCES `user` (`uname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+AUTO_INCREMENT=1000;
 -- ----------------------------
 -- Records of project
 -- ----------------------------
