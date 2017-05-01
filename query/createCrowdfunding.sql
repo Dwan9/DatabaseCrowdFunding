@@ -84,6 +84,22 @@ CREATE TABLE `sponsor` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `like`
+-- ----------------------------
+DROP TABLE IF EXISTS `likes`;
+CREATE TABLE `likes` (
+  `pid` INT NOT NULL,
+  `uname` varchar(40) NOT NULL,
+  PRIMARY KEY (`pid`,`uname`),
+  FOREIGN KEY (`pid`) REFERENCES `project` (`pid`),
+  FOREIGN KEY (`uname`) REFERENCES `user` (`uname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sponsor
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `comment`
 -- ----------------------------
 DROP TABLE IF EXISTS `comment`;
