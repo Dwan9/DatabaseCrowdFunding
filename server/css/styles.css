@@ -1,0 +1,146 @@
+
+body,div,ul,li{padding:0; margin:0;}
+
+/**********************  Change of Bootstrap  **************************/
+.btn-link{
+  
+  color: #000;
+  background-color: none;
+}
+
+
+/**********************  for guest number view  **************************/
+
+
+
+
+/**********************  for main view  **************************/
+
+
+
+#navBar{ 
+  background-color:#d1e3db;/*为了便于查看区域范围大小，故而加个背景色*/ 
+  line-height: 30px;
+} 
+
+#navBar ul{ 
+  width:960px; 
+  height:35px; 
+} 
+
+#navBar ul li{
+  width:100px;
+  list-style:none;
+//  float:left;
+  color: #ccc;/*这特喵怎么回事*/
+  line-height: 35px;
+  padding: 0 10px;
+  display: inline;
+
+} 
+
+#selectBar{
+  background-color: #90caaf;
+}
+
+#selectBar ul{
+  width:960px; 
+  height:35px;
+  margin:0 auto;
+}
+
+#selectBar ul li{
+  width:100px;
+  list-style:none;
+//  float:left;
+  color: red;/*这特喵怎么回事*/
+  line-height: 35px;
+  padding: 0 10px;
+  text-align:center;
+  display: inline;
+} 
+
+
+/**********************  for mylist view  **************************/
+
+#header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+.navblock1{
+    line-height:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:300px;
+    float:left;
+    padding:5px; 
+}
+.navblock2{
+    line-height:30px;
+    background-color:#eeeeee;
+    height:600px;
+    width:200px;
+    float:left;
+    padding:5px; 
+}
+#section {
+  width:600px;
+  height:600px;
+    float:left;
+    padding:10px;
+  background-size: 100%;
+    margin-bottom: 0;
+    height: 100%; 
+}
+
+/**********************  for firstpage  **************************/
+.container{
+    background-color: rgba(255,228,196, 0.6);
+    margin: auto auto;
+}
+
+.profileBG{ 
+	background-image: url("http://127.0.0.1/Images/bg1.jpg");
+    background-size: 100%;
+    margin-bottom: 0;
+    height: 200%;
+	
+}
+
+
+
+.information{
+    background-color: rgba(255,255,255, 0.80);
+    position: relative;
+    left: 15%;
+    top: 220px;
+}
+
+.information p{
+    font-size: 20px;
+}
+
+.information hr{
+    margin: 20px 0;
+    border-color: black;
+}
+
+.buttonCont{
+    margin-left: 20%;
+}
+
+.buttonCont small{
+    font-size: 15px;
+}
+
+
+#profile_userTitle profile_userName{
+	font-size: 100px;
+	color: blue;
+}
+
+
+
+

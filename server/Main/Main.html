@@ -1,0 +1,64 @@
+<html>
+<title>Main</title>
+  <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link href="http://127.0.0.1/css/styles.css" rel="stylesheet">
+
+  </head>
+	
+	<!-- bar -->
+	<div "col-md-12 barContainer" id="barView">
+		<div id="navBar">
+				<ul>
+					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
+						<span>Projects</span></button></li>
+					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html'">
+						<span>Profile</span></button></li>
+					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
+						<span>Log out</span></button></li>
+				</ul>
+		</div>
+    </div>
+	
+<div>
+    <div class="col-md-12 mian" id="subBarView">
+		<div id="selectBar">
+    			<ul>
+					<li><button id="recent" class="btn-link"><span>Feed</span></button></li> 
+					<li><button id="recent" class="btn-link"><span>Recent</span></button></li>      
+					<li><button id="recent" class="btn-link"><span>Favorite</span></button></li> 
+					<li><button id="recent" class="btn-link"><span>History?</span></button></li>
+					<li></li><!--Search-->					
+				</ul>
+		</div>
+	</div>
+	
+	<div class="col-md-4" id="projectsGrid">
+		<!--Template-->
+		<div id="projectView" style="position:relative width=200px height=400px;">
+			<div id="briefProject">
+				<figure><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="200" height="200"></figure>
+				<h1>Project Name</h1>
+				<p>Some Decription of Project ...</p>
+			</div>
+			<div id="detail">
+				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
+			</div>
+		</div>
+		<div id="projectView" style="position:relative width=200px height=400px;">
+			<div id="briefProject">
+				<figure><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="200" height="200"></figure>
+				<h1>Project Name</h1>
+				<p>Some Decription of Project ...</p>
+			</div>
+			<div id="detail">
+				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+	
+</html>
