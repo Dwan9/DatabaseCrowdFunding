@@ -43,29 +43,29 @@ INSERT INTO `progress` (`pid`, `version`) VALUES (1007, 0.2);
 
 -- Sponsor
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1001, 'jin', 50, 'WAIT');
+					  (1000, 'jin', 50, 'WAIT');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1002, 'jin', 500, 'CHARGED');
+					  (1001, 'jin', 500, 'CHARGED');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1003, 'jin', 3000, 'CLOSED');
+					  (1002, 'jin', 3000, 'CLOSED');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1005, 'jin', 150, 'WAIT');
+					  (1004, 'jin', 150, 'WAIT');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1006, 'jin', 10000, 'WAIT');
+					  (1005, 'jin', 10000, 'WAIT');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1007, 'jin', 2000, 'CHARGED');
+					  (1006, 'jin', 2000, 'CHARGED');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1002, 'tian', 5000, 'CHARGED');
+					  (1001, 'tian', 5000, 'CHARGED');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1002, 'zhang', 5000, 'CHARGED');
+					  (1001, 'zhang', 5000, 'CHARGED');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1006, 'hu', 15000, 'WAIT');
+					  (1005, 'hu', 15000, 'WAIT');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1006, 'zhu', 25000, 'WAIT');
+					  (1005, 'zhu', 25000, 'WAIT');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1007, 'han', 3000, 'CHARGED');
+					  (1006, 'han', 3000, 'CHARGED');
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
-					  (1007, 'dua', 5000, 'CHARGED');
+					  (1006, 'dua', 5000, 'CHARGED');
                       
 -- Follower
 INSERT INTO `follower` (`uname`, `funame`) VALUES ('zhu', 'jin');

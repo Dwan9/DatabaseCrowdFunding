@@ -1,3 +1,7 @@
+<?php
+	session_start();
+	$loginname = $_SESSION["username"];
+?>
 <html>
 <title>Main</title>
   <head>
@@ -13,8 +17,11 @@
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
 						<span>Projects</span></button></li>
-					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html'">
-						<span>Profile</span></button></li>
+					<li><button id="profile" class="btn-link" 
+								onclick="location.href='http://127.0.0.1/Main/Profile.html?profileName=<?php echo $loginname ?>'">
+						<span><?php echo $loginname ?></span></button></li>
+					<li><button >
+						<span><?php echo $s_id ?></span></button></li>
 					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
 						<span>Log out</span></button></li>
 				</ul>

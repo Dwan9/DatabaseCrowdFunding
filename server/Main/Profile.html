@@ -1,3 +1,11 @@
+<?php
+	//session_id($_GET['sid']);
+	session_start();
+	$loginname = $_SESSION["username"];
+	$profileName = $_GET['profileName']; 
+	$db = mysqli_connect('localhost','root','1234','crowdfunding')
+		  or die('Error connecting to MySQL server.');
+?>
 <html>
 <title>Profile</title>
   <head>
@@ -13,8 +21,8 @@
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
 						<span>Projects</span></button></li>
-					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html'">
-						<span>Profile</span></button></li>
+					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html?profileName=<?php echo $loginname ?>''">
+						<span><?php echo $loginname?></span></button></li>
 					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
 						<span>Log out</span></button></li>
 				</ul>
@@ -32,7 +40,7 @@
 						<img src="http://127.0.0.1/Images/bg1.jpg" width="180" height="180">
 					</figure>
 				</div>
-				<h1 class="col-md-2" style="font-size:20px; margin-top:50px;">Temp UserName Here</h1>
+				<h1 class="col-md-2" style="font-size:20px; margin-top:50px;"><?php echo $profileName ?></h1>
 				<small class="col-md-2">email: Temp Email Here</small>
 			</div>
 			
@@ -41,8 +49,63 @@
 		<!--Profile detail-->
 	</div>
 	
+	<?php
+		//project list as owner		
+		$searchProject = "select pid, pname, status, tags from project where uname = '$profileName'";
+		$ownProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
+		if(mysqli_num_rows($ownProject) != 0){
+			echo "<p style=\"padding-top:20px;\">As Owner</p>";
+			echo "<div class=\"row\">";
+			while ($pro = mysqli_fetch_array($ownProject)) {
+				$pid = $pro["pid"];
+				$pname = $pro["pname"];
+				$tags = $pro["tags"];
+				$status = $pro["status"];
+				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
+					  <div id=\"briefProject\">
+						<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+						<h1>$pname</h1>
+						<p>$status</p>
+						<p>$tags</p>
+					  </div>
+					<div id=\"detail\">
+					<button onclick=\"location.href='http://127.0.0.1/Main/project.html?projectId=$pid'\">Detail</button>
+					</div>
+					</div>";
+			}
+			echo "</div>";
+		}
+		//sponsor
+		$searchProject = "select project.pid, project.pname, status, tags 
+							from project, sponsor
+							where sponsor.pid = project.pid and sponsor.uname = '$profileName';";
+		$sponsorProject = mysqli_query($db,$searchProject) or die(mysqli_error());
+		if(mysqli_num_rows($sponsorProject) != 0){
+			echo "<p style=\"padding-top:20px;\">As Sponsor</p>";
+			echo "<div class=\"row\">";
+			while ($pro = mysqli_fetch_array($sponsorProject)) {
+				$pid = $pro["pid"];
+				$pname = $pro["pname"];
+				$tags = $pro["tags"];
+				$status = $pro["status"];
+				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
+					  <div id=\"briefProject\">
+						<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+						<h1>$pname</h1>
+						<p>$status</p>
+						<p>$tags</p>
+					  </div>
+					<div id=\"detail\">
+					<button onclick=\"location.href='http://127.0.0.1/Main/project.html?projectId=$pid'\">Detail</button>
+					</div>
+					</div>";
+			}
+			echo "</div>";
+		}
+	?>
+	
 	<!--Project of user as owner-->
-	<p style="padding-top:20px;">As Owner</p>
+	<!--p style="padding-top:20px;">As Owner</p>
 	<div class="row">
 		<div class="col-md-3" id="projectView" style="position:relative width=200px height=400px;">
 			<div id="briefProject">
@@ -64,9 +127,9 @@
 				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
 			</div>
 		</div>
-	</div>
+	</div-->
 	<!--Project of user as Sponsor-->
-	<p style="padding-top:20px;">As Sponsor</p>
+	<!--p style="padding-top:20px;">As Sponsor</p>
 	<div class="row" style="padding-top:20px;">
 		<div class="col-md-3" id="projectView" style="position:relative width=200px height=400px;">
 			<div id="briefProject">
@@ -88,6 +151,6 @@
 				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
 			</div>
 		</div>
-	</div>
+	</div-->
 	
 </html>
