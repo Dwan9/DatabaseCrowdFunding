@@ -1,3 +1,9 @@
+<?php
+	session_start();
+	$loginname = $_SESSION["username"];
+	$db = mysqli_connect('localhost','root','1234','crowdfunding')
+		 or die('Error connecting to MySQL server.');
+?>
 <html>
 <title>Main</title>
   <head>
@@ -13,8 +19,9 @@
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
 						<span>Projects</span></button></li>
-					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html'">
-						<span>Profile</span></button></li>
+					<li><button id="profile" class="btn-link" 
+								onclick="location.href='http://127.0.0.1/Main/Profile.html?profileName=<?php echo $loginname ?>'">
+						<span><?php echo $loginname ?></span></button></li>
 					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
 						<span>Log out</span></button></li>
 				</ul>
@@ -22,7 +29,7 @@
     </div>
 	
 <div>
-    <div class="col-md-12 mian" id="subBarView">
+    <div  id="subBarView">
 		<div id="selectBar">
     			<ul>
 					<li><button id="recent" class="btn-link"><span>Feed</span></button></li> 
@@ -34,9 +41,35 @@
 		</div>
 	</div>
 	
-	<div class="col-md-4" id="projectsGrid">
+	<div>
+		<?php
+			//TODO: all project return here: 
+			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate from project";
+			$allProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
+			while ($pro = mysqli_fetch_array($allProject)) {
+				$pid = $pro["pid"];
+				$pname = $pro["pname"];
+				$tags = $pro["tags"];
+				$status = $pro["status"];
+				$curAmount = $pro["curAmount"];
+				$minAmount = $pro["minAmount"];
+				$endDate = $pro["endDate"];
+				echo "<div class=\"col-md-3\" style=\"position:relative width=200px height=400px; margin-top:10px\">
+						<div>
+							<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+							<h1 style=\"font-size:18px;\">$pname</h1>
+							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
+							<h3 style=\"font-size:10px;\">DUE $endDate</h3>
+							<p>$tags</p>
+						</div>
+						<div>
+							<button onclick=\"location.href='http://127.0.0.1/Main/project.html?pid=$pid'\">Detail</button>
+						</div>
+					</div>";
+			}
+		?>
 		<!--Template-->
-		<div id="projectView" style="position:relative width=200px height=400px;">
+		<!--div class="col-md-3" id="projectView" style="position:relative width=200px height=400px;">
 			<div id="briefProject">
 				<figure><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="200" height="200"></figure>
 				<h1>Project Name</h1>
@@ -46,7 +79,7 @@
 				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
 			</div>
 		</div>
-		<div id="projectView" style="position:relative width=200px height=400px;">
+		<div class="col-md-3" id="projectView" style="position:relative width=200px height=400px;">
 			<div id="briefProject">
 				<figure><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="200" height="200"></figure>
 				<h1>Project Name</h1>
@@ -55,7 +88,7 @@
 			<div id="detail">
 				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
 			</div>
-		</div>
+		</div-->
 	</div>
 	
 </div>
