@@ -1,12 +1,12 @@
-<head>
+<?php session_start();?>
+
+<html>
+<body>
 <?php
-	//print "Productlist: \n";
-	$db = mysqli_connect('localhost','root','1234','crowdfunding')
-		or die('Error connecting to MySQL server.');
-	//parameters
+if (isset($_POST['submit'])){
+	require_once("connect.php");
 	$loginname = $_POST['username'];
 	$password = $_POST['password'];
-	//check username
 	$queryCheckUser = "select password from user where uname = '$loginname'";
 	$userResult = mysqli_query($db,$queryCheckUser) or die(mysqli_error());
 	if(mysqli_num_rows($userResult) == 0){
@@ -19,22 +19,22 @@
 		while ($pa = mysqli_fetch_array($userResult)) {
 			if((string)$password == $pa[0]){
 				//
-				echo("login Success");
-				session_start();
+				echo("Login Success");
 				$_SESSION["username"] = $loginname;
 				$s_id = session_id(); 
-				echo("\nwelcome $loginname");
-				echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/Main.html\">";
+				echo("<br>Welcome $loginname!");
+				echo "<meta http-equiv=\"refresh\" content=\"1; url=http://127.0.0.1/Main/Main.php\">";
 				//echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/Main.html?sid=$s_id\">";
 			}
 			else{
 				//wrong password
-				echo("wrong password\n");
+				echo("Wrong password.\n");
 				echo($pa[0]);
-				
 				echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/index.html\">";
 			}
 		}
 	}
+}
 ?>
-</head>
+</body>
+</html>
