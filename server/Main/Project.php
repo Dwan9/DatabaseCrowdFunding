@@ -86,6 +86,18 @@
 					echo "<button>update a progress</button>";
 				}
 			?>
+			<?php
+				//split tags:
+				$tagList = explode(" ", $thisTags);
+				echo "<p>Tags:   </p>
+						<ul class=\"row\" style=\"list-style-type:none\"><!--tag-->";
+				foreach ($tagList as $tag){
+					echo "<li class=\"col-md-1\"><button 
+							onclick=\"location.href='http://127.0.0.1/Main/SearchMain.php?keys=$tag'\">$tag</button>
+						</li>";
+				}
+				echo "</ul>";
+			?>
 			<p>State: <?php echo $thisStatus;?></p>
 			<p>FUNDING: <?php echo "$$curAmount/$$minAmount:$$maxAmount";?></p>
 			<p><?php echo "FROM: $startDate ----- DUE:$endDate";?></p>
@@ -94,16 +106,9 @@
 			<!--Template-->
 			<?php
 				if($loginname != $owner){
-					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=<?php echo $pid;?>'\">pledge</button>
+					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=$pid'\">pledge</button>
 						 <button >like</button>";
 				}
-			?>
-			<?php
-				echo "<ul class=\"row\" style=\"list-style-type:none\"><!--tag-->
-						<li class=\"col-md-1\"><button>jazz</button></li>
-						<li class=\"col-md-1\"><button>music</button></li>
-						<li class=\"col-md-1\"><button>KFC</button></li>
-					</ul>";
 			?>
 			
 			<!--Progress Content-->
@@ -124,22 +129,42 @@
 	
 	<!--need data to test-->
 	<div id="commentList" class="row" style="margin:Auto">
+		<p>Comments:</p>
 		<!--comment Template-->
-		<div style="background-color:#d1e3db;">
-			<!--profile images?-->
+		<!--div style="background-color:#d1e3db;">
+			<figure style="display: block; margin:Auto;">
+				<img src="http://127.0.0.1/Images/bg1.jpg" width="40" height="40">
+			</figure>
 			<a href="http://127.0.0.1/Main/Profile.php?profileName=AAAAATest" style="font-size: 20px;">AAAAATest</a>
 			<p style="padding: 0 10px;">commentcommentcommentcommentcommentcomment...</p>
 			<p>mm/dd/yyyy<p>
 		</div>
 		<div style="background-color:#d1e3db;">
-			<!--profile images?-->
 			<h1 style="font-size: 20px;">User name</h1>
 			<p style="padding: 0 10px;">commentcommentcommentcommentcommentcomment...</p>
 			<p>mm/dd/yyyy<p>
 		</div>
-		<div>
-			<p>Comments:</p>
-			<?php
+		<div-->
+		<?php
+			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
+			while ($row = mysqli_fetch_array($getComment)) {
+				echo "<div style=\"background-color:#d1e3db;\">
+						<figure style=\"display: block; margin:Auto;\">
+							<img src=\"http://127.0.0.1/Images/bg1.jpg\" width=\"40\" height=\"40\">
+						</figure>
+						<a href=\"http://127.0.0.1/Main/Profile.php?profileName=".$row['uname']."\" style=\"font-size: 20px;\">".$row['uname']."</a>
+						<p style=\"padding: 0 10px;\">".$row['description']."</p>
+						<p>On Version ".$row['version']."</p>
+					</div>";
+			}
+			$checkIfPledge = mysqli_query($db,"select * from sponsor where pid=$pid and uname = '$loginname'") or die(mysqli_error());
+			$checkIfComment = mysqli_query($db,"select * from comment where pid=$pid and uname = '$loginname' and version = $version") or die(mysqli_error());
+			if (mysqli_num_rows($checkIfPledge)>0 and mysqli_num_rows($checkIfComment)==0){
+				echo "<div><form action='sendComment.php?version=$version&pid=$pid' method='POST' id = 'commentForm'><textarea style='margin-left:50px' name='description' rows=4' cols='50' placeholder='Leave a Command here:' form='commentForm' required></textarea><input style=\"margin-left:50px\" type=\"submit\" name=\"submit\" value=\"Submit\"></form></div>";
+			}
+		?>
+			<!--
+			<
 			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
 			while ($row = mysqli_fetch_array($getComment)) {
 				echo "<div><article><h5>From ".$row['uname'].":</h5><p>For version ".$row['version']."</p><p>".$row['description']."</p><br></article></div>";
@@ -149,7 +174,7 @@
 			if (mysqli_num_rows($checkIfPledge)>0 and mysqli_num_rows($checkIfComment)==0){
 				echo "<div><form action='sendComment.php?version=$version&pid=$pid' method='POST' id = 'commentForm'><textarea style='margin-left:50px' name='description' rows=4' cols='50' placeholder='Leave a Command here:' form='commentForm' required></textarea><input style=\"margin-left:50px\" type=\"submit\" name=\"submit\" value=\"Submit\"></form></div>";
 			}
-			?>
+			-->
 	</div>
 </div>
 
