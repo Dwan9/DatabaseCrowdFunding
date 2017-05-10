@@ -105,7 +105,7 @@
 			<p><?php echo $thisTags ?></p>
 			<!--Template-->
 			<?php
-				if($loginname != $owner){
+				if(($loginname != $owner)&&($thisStatus != "FULL")&&($thisStatus != "FAIL")){
 					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=$pid'\">pledge</button>
 						 <button >like</button>";
 				}
@@ -130,21 +130,6 @@
 	<!--need data to test-->
 	<div id="commentList" class="row" style="margin:Auto">
 		<p>Comments:</p>
-		<!--comment Template-->
-		<!--div style="background-color:#d1e3db;">
-			<figure style="display: block; margin:Auto;">
-				<img src="http://127.0.0.1/Images/bg1.jpg" width="40" height="40">
-			</figure>
-			<a href="http://127.0.0.1/Main/Profile.php?profileName=AAAAATest" style="font-size: 20px;">AAAAATest</a>
-			<p style="padding: 0 10px;">commentcommentcommentcommentcommentcomment...</p>
-			<p>mm/dd/yyyy<p>
-		</div>
-		<div style="background-color:#d1e3db;">
-			<h1 style="font-size: 20px;">User name</h1>
-			<p style="padding: 0 10px;">commentcommentcommentcommentcommentcomment...</p>
-			<p>mm/dd/yyyy<p>
-		</div>
-		<div-->
 		<?php
 			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
 			while ($row = mysqli_fetch_array($getComment)) {
@@ -163,18 +148,6 @@
 				echo "<div><form action='sendComment.php?version=$version&pid=$pid' method='POST' id = 'commentForm'><textarea style='margin-left:50px' name='description' rows=4' cols='50' placeholder='Leave a Command here:' form='commentForm' required></textarea><input style=\"margin-left:50px\" type=\"submit\" name=\"submit\" value=\"Submit\"></form></div>";
 			}
 		?>
-			<!--
-			<
-			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
-			while ($row = mysqli_fetch_array($getComment)) {
-				echo "<div><article><h5>From ".$row['uname'].":</h5><p>For version ".$row['version']."</p><p>".$row['description']."</p><br></article></div>";
-			}
-			$checkIfPledge = mysqli_query($db,"select * from sponsor where pid=$pid and uname = '$loginname'") or die(mysqli_error());
-			$checkIfComment = mysqli_query($db,"select * from comment where pid=$pid and uname = '$loginname' and version = $version") or die(mysqli_error());
-			if (mysqli_num_rows($checkIfPledge)>0 and mysqli_num_rows($checkIfComment)==0){
-				echo "<div><form action='sendComment.php?version=$version&pid=$pid' method='POST' id = 'commentForm'><textarea style='margin-left:50px' name='description' rows=4' cols='50' placeholder='Leave a Command here:' form='commentForm' required></textarea><input style=\"margin-left:50px\" type=\"submit\" name=\"submit\" value=\"Submit\"></form></div>";
-			}
-			-->
 	</div>
 </div>
 
