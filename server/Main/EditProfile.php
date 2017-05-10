@@ -11,11 +11,11 @@
 	<div "col-md-12 barContainer" id="barView">
 		<div id="navBar">
 				<ul>
-					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
+					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
-					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html'">
+					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.php'">
 						<span>Profile</span></button></li>
-					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
+					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/logout.php'">
 						<span>Log out</span></button></li>
 				</ul>
 		</div>

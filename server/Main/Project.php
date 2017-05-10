@@ -3,9 +3,11 @@
 	session_start();
 	$loginname = $_SESSION["username"];
 	$pid = $_GET['pid'];
-	//
-	$db = mysqli_connect('localhost','root','1234','crowdfunding')
-		  or die('Error connecting to MySQL server.');
+	if (!isset($loginname)){
+		echo "<script>location.href='../index.html';</script>";
+	}
+	require_once("../connect.php");
+
 	$thisProject = mysqli_query($db,"select pname, status, tags, curAmount, minAmount, maxAmount, uname, startDate, endDate
 									from project
 									where pid=$pid") or die(mysqli_error());
@@ -46,11 +48,11 @@
 	<div "col-md-12 barContainer" id="barView">
 		<div id="navBar">
 				<ul>
-					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
+					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
-					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html?profileName=<?php echo $loginname ?>'">
+					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.php?profileName=<?php echo $loginname ?>'">
 						<span><?php echo $loginname ?></span></button></li>
-					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
+					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/logout.php'">
 						<span>Log out</span></button></li>
 				</ul>
 		</div>
@@ -62,7 +64,7 @@
 			<div >
 			<!--user of the project-->
 			<figure style="display: block; margin-left:10px"><img src="http://127.0.0.1/Images/bg1.jpg" width="180" height="180"></figure>
-			<a style="margin-left:10px" href="http://127.0.0.1/Main/Profile.html?profileName=<?php echo $owner;?>"><?php echo $owner;?></a>
+			<a style="margin-left:10px" href="http://127.0.0.1/Main/Profile.php?profileName=<?php echo $owner;?>"><?php echo $owner;?></a>
 			<div style="margin-left:10px" class="row">
 			<?php
 				if($loginname != $owner){
@@ -92,7 +94,7 @@
 			<!--Template-->
 			<?php
 				if($loginname != $owner){
-					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.html?pid=<?php echo $pid;?>'\">pledge</button>
+					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=<?php echo $pid;?>'\">pledge</button>
 						 <button >like</button>";
 				}
 			?>
@@ -106,6 +108,7 @@
 			
 			<!--Progress Content-->
 		<?php
+		$version = '0.0';
 		if(mysqli_num_rows($progressList) != 0){
 			echo "<p style=\"margin-left:10px\">Progress Now:</p>";
 			echo "<ul style=\"list-style-type:disc; margin-left:10px;\"";
@@ -124,7 +127,7 @@
 		<!--comment Template-->
 		<div style="background-color:#d1e3db;">
 			<!--profile images?-->
-			<a href="http://127.0.0.1/Main/Profile.html?profileName=AAAAATest" style="font-size: 20px;">AAAAATest</a>
+			<a href="http://127.0.0.1/Main/Profile.php?profileName=AAAAATest" style="font-size: 20px;">AAAAATest</a>
 			<p style="padding: 0 10px;">commentcommentcommentcommentcommentcomment...</p>
 			<p>mm/dd/yyyy<p>
 		</div>
@@ -135,10 +138,18 @@
 			<p>mm/dd/yyyy<p>
 		</div>
 		<div>
-			<p>Comment:</p>
-			<input style="margin-left:50px" type="text" name="password" placeholder="required" required>
-			<input style="margin-left:50px" type="submit" name="submit" value="Submit">
-		</div>
+			<p>Comments:</p>
+			<?php
+			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
+			while ($row = mysqli_fetch_array($getComment)) {
+				echo "<div><article><h5>From ".$row['uname'].":</h5><p>For version ".$row['version']."</p><p>".$row['description']."</p><br></article></div>";
+			}
+			$checkIfPledge = mysqli_query($db,"select * from sponsor where pid=$pid and uname = '$loginname'") or die(mysqli_error());
+			$checkIfComment = mysqli_query($db,"select * from comment where pid=$pid and uname = '$loginname' and version = $version") or die(mysqli_error());
+			if (mysqli_num_rows($checkIfPledge)>0 and mysqli_num_rows($checkIfComment)==0){
+				echo "<div><form action='sendComment.php?version=$version&pid=$pid' method='POST' id = 'commentForm'><textarea style='margin-left:50px' name='description' rows=4' cols='50' placeholder='Leave a Command here:' form='commentForm' required></textarea><input style=\"margin-left:50px\" type=\"submit\" name=\"submit\" value=\"Submit\"></form></div>";
+			}
+			?>
 	</div>
 </div>
 

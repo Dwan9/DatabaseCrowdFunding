@@ -1,8 +1,10 @@
 <?php
 	session_start();
 	$loginname = $_SESSION["username"];
-	$db = mysqli_connect('localhost','root','1234','crowdfunding')
-		 or die('Error connecting to MySQL server.');
+	if (!isset($loginname)){
+		echo "<script>location.href='../index.html';</script>";
+	}
+	require_once("../connect.php");
 ?>
 <html>
 <title>Main</title>
@@ -12,17 +14,16 @@
     <link href="http://127.0.0.1/css/styles.css" rel="stylesheet">
 
   </head>
-	
 	<!-- bar -->
 	<div "col-md-12 barContainer" id="barView">
 		<div id="navBar">
 				<ul>
-					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
+					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
 					<li><button id="profile" class="btn-link" 
-								onclick="location.href='http://127.0.0.1/Main/Profile.html?profileName=<?php echo $loginname ?>'">
+								onclick="location.href='http://127.0.0.1/Main/Profile.php?profileName=<?php echo $loginname ?>'">
 						<span><?php echo $loginname ?></span></button></li>
-					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
+					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/logout.php'">
 						<span>Log out</span></button></li>
 				</ul>
 		</div>
@@ -43,8 +44,14 @@
 	
 	<div>
 		<?php
+
+
 			//TODO: all project return here: 
 			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate from project";
+			//布局你来吧
+			// $pledgedProject = "select * from (select distinct pid from sponsor where uname = '$loginname')as T natural join project";
+			// $newProject = "select * from project order by startDate DESC Limit 4"；
+			//
 			$allProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
 			while ($pro = mysqli_fetch_array($allProject)) {
 				$pid = $pro["pid"];
@@ -63,7 +70,7 @@
 							<p>$tags</p>
 						</div>
 						<div>
-							<button onclick=\"location.href='http://127.0.0.1/Main/project.html?pid=$pid'\">Detail</button>
+							<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 						</div>
 					</div>";
 			}

@@ -1,11 +1,11 @@
 <?php
 
-define('mpuser', 'customer');
-define('mppassword','1');
-define('mphost', 'localhost');
-define('mpdb', 'marketplace');
+define('DBuser', 'root');
+define('DBpassword','1234');
+define('DBhost', 'localhost');
+define('DBdb', 'crowdfunding');
 
-$connection = @mysqli_connect(mphost, mpuser, mppassword, mpdb)
-or die('Fail to connect to MySQL. ' . mysqli_connect_error());
+$db = @mysqli_connect(DBhost, DBuser, DBpassword, DBdb)
+or die('Fail to connect to MySQL server. ' . mysqli_connect_error());
 // echo "Connection Successful."
-?>
+

@@ -1,6 +1,7 @@
 <html lang="en">
 <!--html><body><h1>It works!</h1></body></html-->
 <body>
+<script type="text/javascript" src="http://127.0.0.1/AntiSqlInject.js"></script>
 <title>Login!</title>
 
 	<div class="topBar">
@@ -15,9 +16,9 @@
 <form name="login" action="login.php" method="post">
   <ul>
     <li><label for="username">Username</label>
-    <input type="text" name="username" placeholder="required" required></li>
+    <input type="text" name="username" onblur="AntiSqlInject(this)" placeholder="required" required></li>
     <li><label for="password">password</label>
-    <input type="text" name="password" placeholder="required" required></li>
+    <input type="password" name="password" onblur="AntiSqlInject(this)" maxlength="20" placeholder="required" required></li>
     <li>
     <input type="submit" name="submit" value="Enter"></li>
   </ul>
