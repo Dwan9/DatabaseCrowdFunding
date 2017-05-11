@@ -203,6 +203,11 @@ window.onload = function ()
 				}
 				echo "</ul>";
 			?>
+			<?php
+				if($rate != ""){
+					echo "<p>$rate</p>";
+				}
+			?>
 			<p>State: <?php echo $thisStatus;?></p>
 			<p>FUNDING:</p>
 			<?php
@@ -273,8 +278,8 @@ window.onload = function ()
 	</div>
 	
 	<!--need data to test-->
-	<div id="commentList" class="row" style="margin:Auto">
-		<p>Comments:</p>
+	<div id="commentList" class="row" style="margin-left:10px">
+		<p style="margin-left:10px">Comments:</p>
 		<?php
 			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
 			while ($row = mysqli_fetch_array($getComment)) {
@@ -291,7 +296,7 @@ window.onload = function ()
 				}
 				$protraitPath = "http://127.0.0.1/Images/".$protraitName;
 				
-				echo "<div style=\"background-color:#d1e3db;\">
+				echo "<div style=\"background-color:#d1e3db; margin-left:10px\">
 						<figure style=\"display: block; margin:Auto;\">
 							<img src=\"$protraitPath\" width=\"40\" height=\"40\">
 						</figure>

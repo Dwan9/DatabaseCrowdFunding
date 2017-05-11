@@ -27,7 +27,7 @@
 		session_start();
 		$_SESSION["username"] = $loginname;
 		$s_id = session_id(); 
-		echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/AfterRegistration.html">";
+		echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/Main.php\">";
 	}
 ?>
 </head>

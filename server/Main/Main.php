@@ -58,12 +58,15 @@
 	<div class="row">
 		<?php
 			$searchProject = "select project.pid, pname, status, tags, curAmount, minAmount, endDate, imagePath, maxAmount
-							  from follower, project where follower.funame = 'dua' and project.uname = follower.uname
+							  from follower, project where follower.funame = '$loginname' and project.uname = follower.uname
 								union
 							select project.pid, pname, status, tags, curAmount, minAmount, endDate, imagePath, maxAmount
 							from likes, follower, project
-							where follower.funame = 'dua' and likes.uname = follower.uname and project.pid = likes.pid;";
+							where follower.funame = '$loginname' and likes.uname = follower.uname and project.pid = likes.pid;";
 			$feedProject = mysqli_query($db,$searchProject) or die(mysqli_error());
+			if(mysqli_num_rows($feedProject) == 0){
+				echo "<p style=\"margin-left:15px\">Add some follow thus we can recommend</p>";
+			}
 			while ($pro = mysqli_fetch_array($feedProject)) {
 				$pid = $pro["pid"];
 				$pname = $pro["pname"];

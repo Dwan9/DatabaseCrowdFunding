@@ -81,7 +81,7 @@ drop trigger if exists updateRate;
 create trigger updateRate after update on sponsor
 for each row begin
 declare newrate decimal(10,2);
-if new.rate!= old.rate then
+
 select avg(rate) 
 into newrate
 from sponsor 
@@ -90,7 +90,7 @@ group by sponsor.pid;
 update project
 set rate=newrate
 where pid = new.pid;
-end if;
+
 end;
 /
 delimiter ;
