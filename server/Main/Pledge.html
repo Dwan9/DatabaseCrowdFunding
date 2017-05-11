@@ -1,0 +1,55 @@
+<?php
+	session_start();
+	$loginname = $_SESSION["username"];
+	$pid = $_GET['pid'];
+	$db = mysqli_connect('localhost','root','1234','crowdfunding')
+		 or die('Error connecting to MySQL server.');
+		 
+	$thisProject = mysqli_query($db,"select pname
+									from project
+									where pid=$pid") or die(mysqli_error());
+	$pname = "this project";
+	while ($pro = mysqli_fetch_array($thisProject)) {
+		$pname = $pro["pname"];
+	}
+?>
+
+<html>
+<title>Pay</title>
+  <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
+    <link href="http://127.0.0.1/css/styles.css" rel="stylesheet">
+
+  </head>
+	
+	<!-- bar -->
+	<div "col-md-12 barContainer" id="barView">
+		<div id="navBar">
+				<ul>
+					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
+						<span>Projects</span></button></li>
+					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html'">
+						<span><?php echo $loginname?></span></button></li>
+					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
+						<span>Log out</span></button></li>
+				</ul>
+		</div>
+    </div>
+	<div style="margin-top:20px">
+		<p style="font-size:25px;">Pledge to <?php echo $pname;?></p>
+		<form name="login" action="http://127.0.0.1/Main/Pledge.php" method="post">
+		<ul>
+			<li><label style="margin-left:50px" for="number">Amount To Pledge?</label>
+			<input type="text" name="number" placeholder="required" required></li>
+			<li><label style="margin-left:50px" for="newCreditNum">Or Other Credict Card</label>
+			<input type="text" name="newCreditNum" ></li>
+			<li>
+			<input style="margin-left:250px" type="submit" name="submit" value="TAKE MY MONEY"></li>
+		</ul>
+		<a href="http://127.0.0.1/Main/project.html?pid=<?php echo $pid;?>">back</a>
+		</form>
+	</div>	
+
+	
+</html>

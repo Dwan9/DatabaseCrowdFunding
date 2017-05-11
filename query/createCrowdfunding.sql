@@ -13,6 +13,7 @@ CREATE TABLE `user` (
   `uemail` varchar(40) DEFAULT NULL,
   `password` varchar(40) NOT NULL,
   `credit`	varchar(40) DEFAULT NULL,
+  `protraitPath` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`uname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -39,6 +40,7 @@ CREATE TABLE `project` (
   `rate` decimal(10,2) DEFAULT NULL,
   `description` varchar(40) DEFAULT NULL,
   `tags` varchar(40) DEFAULT NULL,
+  `imagePath` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`),
   FOREIGN KEY (`uname`) REFERENCES `user` (`uname`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1000;
@@ -54,6 +56,7 @@ CREATE TABLE `progress` (
   `pid` INT NOT NULL,
   `version` decimal(10,2) NOT NULL,
   `description` varchar(40) DEFAULT NULL,
+  `imagePath` varchar(40) DEFAULT NULL,
   PRIMARY KEY (`pid`,`version`),
   FOREIGN KEY (`pid`) REFERENCES `project` (`pid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -132,3 +135,12 @@ CREATE TABLE `follower` (
 -- ----------------------------
 -- Records of follower
 -- ----------------------------
+
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE `notification` (
+  `pid` INT NOT NULL,
+  `uname` varchar(40) NOT NULL,
+  `description` varchar(40) NULL,
+  FOREIGN KEY (`pid`) REFERENCES `project` (`pid`),
+  FOREIGN KEY (`uname`) REFERENCES `user` (`uname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

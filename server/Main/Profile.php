@@ -6,12 +6,17 @@
 	$db = mysqli_connect('localhost','root','1234','crowdfunding')
 		  or die('Error connecting to MySQL server.');
 	//user information
-	$userEmail = mysqli_query($db,"select uemail from user where uname = '$profileName'") or die(mysqli_error());
+	$userEmail = mysqli_query($db,"select uemail, protraitPath from user where uname = '$profileName'") or die(mysqli_error());
 	$emailValue = "No Email";
 	$userDescrib = "This user is lazy, left nothing here.";
 	while ($e = mysqli_fetch_array($userEmail)) {
 		$emailValue = $e["uemail"];
+		$protraitName = $e["protraitPath"];
 	}
+	if($protraitName == ""){
+		$protraitName = "bg1.jpg";
+	}
+	$protraitPath = "http://127.0.0.1/Images/".$protraitName;
 ?>
 <html>
 <title>Profile</title>
@@ -44,7 +49,9 @@
 				<!--images?-->
 				<div class="col-md-2">
 					<figure style="display: block; margin:Auto;">
-						<img src="http://127.0.0.1/Images/bg1.jpg" width="180" height="180">
+					<?php
+						echo "<img src=\"$protraitPath\" width=\"180\" height=\"180\">";
+					?>	
 					</figure>
 					<h1 style="font-size:20px; margin-top:5px;"><?php echo $profileName ?></h1>
 					<?php
@@ -57,7 +64,7 @@
 				<p class="col-md-2" style="margin-top:50px;"><?php $userDescrib ?></p>
 				<?php
 					if($loginname == $profileName){
-						echo "<a href=\"http://127.0.0.1/Main/EditProfile.php\" style=\"font-size: 15px;\">Create New Project</a>";
+						echo "<a href=\"http://127.0.0.1/Main/CreateProject.php\" style=\"font-size: 15px;\">Create New Project</a>";
 					}
 				?>
 			</div>
@@ -69,7 +76,7 @@
 	
 	<?php
 		//project list as owner		
-		$searchProject = "select pid, pname, status, tags from project where uname = '$profileName'";
+		$searchProject = "select pid, pname, status, tags, imagePath from project where uname = '$profileName'";
 		$ownProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
 		if(mysqli_num_rows($ownProject) != 0){
 			echo "<p style=\"padding-top:20px; background-color:#90caaf;\">As Owner</p>";
@@ -79,9 +86,14 @@
 				$pname = $pro["pname"];
 				$tags = $pro["tags"];
 				$status = $pro["status"];
+				$imageName = $pro["imagePath"];
+				if($imageName == ""){
+					$imageName = "projectbgTemp.jpg";
+				}
+				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
 				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
 					  <div id=\"briefProject\">
-						<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+						<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 						<h1 style=\"font-size:18px;\">$pname</h1>
 						<p>Current Status: $status</p>
 						<p>$tags</p>
@@ -94,7 +106,7 @@
 			echo "</div>";
 		}
 		//sponsor
-		$searchProject = "select project.pid, project.pname, status, tags 
+		$searchProject = "select project.pid, project.pname, status, tags , imagePath
 							from project, sponsor
 							where sponsor.pid = project.pid and sponsor.uname = '$profileName';";
 		$sponsorProject = mysqli_query($db,$searchProject) or die(mysqli_error());
@@ -106,9 +118,14 @@
 				$pname = $pro["pname"];
 				$tags = $pro["tags"];
 				$status = $pro["status"];
+				$imageName = $pro["imagePath"];
+				if($imageName == ""){
+					$imageName = "projectbgTemp.jpg";
+				}
+				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
 				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
 					  <div id=\"briefProject\">
-						<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+						<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 						<h1 style=\"font-size:18px;\">$pname</h1>
 						<p>Current Status: $status</p>
 						<p>$tags</p>
@@ -121,7 +138,7 @@
 			echo "</div>";
 		}
 		//likes
-		$searchProject = "select project.pid, project.pname, status, tags 
+		$searchProject = "select project.pid, project.pname, status, tags , imagePath
 							from likes, project
 							where likes.uname = '$profileName' and likes.pid = project.pid;";
 		$likeProject = mysqli_query($db,$searchProject) or die(mysqli_error());
@@ -133,9 +150,14 @@
 				$pname = $pro["pname"];
 				$tags = $pro["tags"];
 				$status = $pro["status"];
+				$imageName = $pro["imagePath"];
+				if($imageName == ""){
+					$imageName = "projectbgTemp.jpg";
+				}
+				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
 				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
 					  <div id=\"briefProject\">
-						<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+						<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 						<h1 style=\"font-size:18px;\">$pname</h1>
 						<p>Current Status: $status</p>
 						<p>$tags</p>
@@ -147,6 +169,9 @@
 			}
 			echo "</div>";
 		}
+		//follow
+		
+		
 	?>
 	
 </html>

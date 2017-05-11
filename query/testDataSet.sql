@@ -35,11 +35,11 @@ INSERT INTO `project` (`uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`
 					('hu', '2017-03-12', '2017-08-01', 5000, 10000, 10000, 'aerial fight club', 'FULL', 'sculpture');
                     
 -- Progress
-INSERT INTO `progress` (`pid`, `version`) VALUES (1002, 0.2);
-INSERT INTO `progress` (`pid`, `version`) VALUES (1002, 0.5);
-INSERT INTO `progress` (`pid`, `version`) VALUES (1002, 0.51);
-INSERT INTO `progress` (`pid`, `version`) VALUES (1007, 0.1);
-INSERT INTO `progress` (`pid`, `version`) VALUES (1007, 0.2);
+INSERT INTO `progress` (`pid`, `version`) VALUES (1001, 0.2);
+INSERT INTO `progress` (`pid`, `version`) VALUES (1001, 0.5);
+INSERT INTO `progress` (`pid`, `version`) VALUES (1001, 0.51);
+INSERT INTO `progress` (`pid`, `version`) VALUES (1006, 0.1);
+INSERT INTO `progress` (`pid`, `version`) VALUES (1006, 0.2);
 
 -- Sponsor
 INSERT INTO `sponsor` (`pid`, `uname`, `amount`, `pledgeStatus`) VALUES 
@@ -74,3 +74,6 @@ INSERT INTO `follower` (`uname`, `funame`) VALUES ('zhang', 'jin');
 INSERT INTO `follower` (`uname`, `funame`) VALUES ('dua', 'tian');
 INSERT INTO `follower` (`uname`, `funame`) VALUES ('zhange', 'hu');
 INSERT INTO `follower` (`uname`, `funame`) VALUES ('han', 'zhang');
+
+-- notification Test
+INSERT INTO `notification` (`uname`, `pid`, `description`) VALUES ('dua', '1000', 'TestTest');

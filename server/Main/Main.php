@@ -23,6 +23,15 @@
 					<li><button id="profile" class="btn-link" 
 								onclick="location.href='http://127.0.0.1/Main/Profile.php?profileName=<?php echo $loginname ?>'">
 						<span><?php echo $loginname ?></span></button></li>
+					<?php
+						$searchNoti = mysqli_query($db,"select pid, description from notification where uname = '$loginname'")
+										or die(mysqli_error());
+						if(mysqli_num_rows($searchNoti) != 0){
+							echo "<li><button class=\"btn-link\" onclick=\"location.href='http://127.0.0.1/Main/Notification.php'\">
+								<span style=\"color:red;\">New Notification!</span></button></li>";
+						}
+					?>
+						
 					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/logout.php'">
 						<span>Log out</span></button></li>
 				</ul>
@@ -33,8 +42,7 @@
     <div>
 		<div>
     			<ul class="row" style="background-color: #90caaf; list-style-type: none;">
-					<li class="col-md-1" style="margin-top:5px"><button id="recent" class="btn-link"><span>Feed</span></button></li>     
-					<li class="col-md-1" style="margin-top:5px"><button class="btn-link"><span>Favorite</span></button></li>
+					<!--li class="col-md-1" style="margin-top:5px"><button id="recent" class="btn-link"><span>Feed</span></button></li-->    
 					<li style="margin-left:250px; margin-top:5px" class="col-md-3">
 						<form name="search" action="SearchMain.php" method="post">
 							<input type="text" name="keys" onblur="AntiSqlInject(this)"
@@ -51,10 +59,7 @@
 
 
 			//TODO: all project return here: 
-			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate from project";
-			//布局你来吧
-			// $pledgedProject = "select * from (select distinct pid from sponsor where uname = '$loginname')as T natural join project";
-			// $newProject = "select * from project order by startDate DESC Limit 4"；
+			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate, imagePath from project";
 			//
 			$allProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
 			while ($pro = mysqli_fetch_array($allProject)) {
@@ -65,9 +70,14 @@
 				$curAmount = $pro["curAmount"];
 				$minAmount = $pro["minAmount"];
 				$endDate = $pro["endDate"];
+				$imageName = $pro["imagePath"];
+				if($imageName == ""){
+					$imageName = "projectbgTemp.jpg";
+				}
+				$imageName = "http://127.0.0.1/Images/Project/" .$imageName; 
 				echo "<div class=\"col-md-3\" style=\"position:relative width=200px height=400px; margin-top:10px\">
 						<div>
-							<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+							<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 							<h1 style=\"font-size:18px;\">$pname</h1>
 							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
 							<h3 style=\"font-size:10px;\">DUE $endDate</h3>
