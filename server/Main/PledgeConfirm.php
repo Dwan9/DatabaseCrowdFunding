@@ -17,8 +17,9 @@
 
 	$ifSponsored = mysqli_query($db,"select * from sponsor where pid = $pid and uname = '$loginname'");
 	if (mysqli_num_rows($ifSponsored)>0){
-	$query = mysqli_query($db,"update sponsor set amount = amount + $amount where pid = $pid and uname = '$loginname'");
-	if ($query){
+	$query1 = mysqli_query($db,"update sponsor set amount = amount + $amount where pid = $pid and uname = '$loginname'");
+	$query2 = mysqli_query($db,"update project set curAmount = curAmount + $amount where pid = $pid");
+	if ($query1 && $query2){
 		echo "Your pledge has been updated. Appreciated again.";
 		echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/project.php?pid=$pid\">";
 	}
