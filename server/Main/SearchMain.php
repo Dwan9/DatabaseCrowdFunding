@@ -54,7 +54,7 @@
 	<div class="row">
 		<?php
 			//TODO: all project return here: 
-			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate 
+			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate , imagePath
 							  from project
 							  where project.tags like '%$searchKey%' or pname like '%$searchKey%'";
 			$allProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
@@ -66,9 +66,14 @@
 				$curAmount = $pro["curAmount"];
 				$minAmount = $pro["minAmount"];
 				$endDate = $pro["endDate"];
+				$imageName = $pro["imagePath"];
+				if($imageName == ""){
+					$imageName = "projectbgTemp.jpg";
+				}
+				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
 				echo "<div class=\"col-md-3\" style=\"position:relative width=200px height=400px; margin-top:10px\">
 						<div>
-							<figure><img src=\"http://127.0.0.1/Images/projectbgTemp.jpg\" width=\"200\" height=\"200\"></figure>
+							<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 							<h1 style=\"font-size:18px;\">$pname</h1>
 							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
 							<h3 style=\"font-size:10px;\">DUE $endDate</h3>

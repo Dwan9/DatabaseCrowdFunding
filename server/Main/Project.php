@@ -8,7 +8,7 @@
 	}
 	require_once("../connect.php");
 
-	$thisProject = mysqli_query($db,"select pname, status, tags, curAmount, minAmount, maxAmount, uname, startDate, endDate
+	$thisProject = mysqli_query($db,"select pname, status, tags, curAmount, minAmount, maxAmount, uname, startDate, endDate, description, imagePath
 									from project
 									where pid=$pid") or die(mysqli_error());
 	$thispname = "pname";
@@ -20,6 +20,7 @@
 	$maxAmount = "maxAmount";
 	$startDate = "startDate";
 	$endDate = "endDate";
+	$description = "No content left";
 	while ($pro = mysqli_fetch_array($thisProject)) {
 				$thispname = $pro["pname"];
 				$owner = $pro["uname"];
@@ -30,11 +31,26 @@
 				$maxAmount = $pro["maxAmount"];
 				$startDate = $pro["startDate"];
 				$endDate = $pro["endDate"];
+				$description = $pro["description"];
+				$imageName = $pro["imagePath"];
 				}
+	if($imageName == ""){
+		$imageName = "projectbgTemp.jpg";
+	}
+	$projectImgPath = "http://127.0.0.1/Images/Project/".$imageName;
 	
-	$progressList = mysqli_query($db, "select version, description
+	$progressList = mysqli_query($db, "select version, description, imagePath
 										from progress
 										where progress.pid=$pid") or die(mysqli_error());
+	//get user protrait:
+		$ownerResult = mysqli_query($db,"select uemail, protraitPath from user where uname = '$owner'") or die(mysqli_error());
+		while ($e = mysqli_fetch_array($ownerResult)) {
+			$ownerProtraitName = $e["protraitPath"];
+		}
+		if($ownerProtraitName == ""){
+			$ownerProtraitName = "bg1.jpg";
+		}
+		$ownerProtraitPath = "http://127.0.0.1/Images/".$ownerProtraitName;
 ?>
 <html>
 <title>Project</title>
@@ -63,7 +79,11 @@
 		<div class="col-md-2" style="background-color:#ccc;">
 			<div >
 			<!--user of the project-->
-			<figure style="display: block; margin-left:10px"><img src="http://127.0.0.1/Images/bg1.jpg" width="180" height="180"></figure>
+			<figure style="display: block; margin-left:10px">
+				<?php 
+					echo "<img src=\"$ownerProtraitPath\" width=\"180\" height=\"180\">";
+				?>
+			</figure>
 			<a style="margin-left:10px" href="http://127.0.0.1/Main/Profile.php?profileName=<?php echo $owner;?>"><?php echo $owner;?></a>
 			<div style="margin-left:10px" class="row">
 			<?php
@@ -83,7 +103,7 @@
 					echo"<button>rate</button>";
 				}
 				if ($loginname == $owner && ($thisStatus=="FUNDED" || $thisStatus=="FULL")){
-					echo "<button>update a progress</button>";
+					echo "<button onclick=\"location.href='http://127.0.0.1/Main/CreateProgress.php?pid=$pid'\">update a progress</button>";
 				}
 			?>
 			<?php
@@ -101,15 +121,20 @@
 			<p>State: <?php echo $thisStatus;?></p>
 			<p>FUNDING: <?php echo "$$curAmount/$$minAmount:$$maxAmount";?></p>
 			<p><?php echo "FROM: $startDate ----- DUE:$endDate";?></p>
-			<figure style="display: block; margin: auto;"><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="400" height="400"></figure>
+			<figure style="display: block; margin: auto;">
+				<?php
+					echo "<img src=\"$projectImgPath\" width=\"400\" height=\"400\">";
+				?>
+			</figure>
+			<p><?php echo $description ?></p>
 			<p><?php echo $thisTags ?></p>
 			<!--Template-->
 			<?php
 				if(($loginname != $owner)&&($thisStatus != "FULL")&&($thisStatus != "FAIL")){
-					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=$pid'\">pledge</button>
-						 <button >like</button>";
+					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=$pid'\">pledge</button>";
 				}
 			?>
+			<button >like</button>
 			
 			<!--Progress Content-->
 		<?php
@@ -119,7 +144,17 @@
 			echo "<ul style=\"list-style-type:disc; margin-left:10px;\"";
 			while ($pro = mysqli_fetch_array($progressList)) {
 				$version = $pro["version"];
-				echo "<li><p>$version</p></li>";
+				$progressdiscription = $pro["description"];
+				$imgPath = $pro["imagePath"];
+				echo "<li>";
+				echo "<p>$version</p>";
+				if($imgPath != ""){
+					echo "<figure style=\"display: block; margin: auto;\">
+						<img src=\"http://127.0.0.1/Images/Project/$imgPath\" width=\"400\" height=\"400\">
+					  </figure>";
+				}
+				echo "<p>$progressdiscription</p>";
+				echo "</li>";
 			}
 			echo "</ul>";
 		}
@@ -133,9 +168,22 @@
 		<?php
 			$getComment = mysqli_query($db,"select * from comment where pid=$pid order by version DESC") or die(mysqli_error());
 			while ($row = mysqli_fetch_array($getComment)) {
+				$commentuname = $row['uname'];
+				//get user protrait:
+				$userResult = mysqli_query($db,"select uemail, protraitPath from user where uname = '$commentuname'") or die(mysqli_error());
+				
+				while ($e = mysqli_fetch_array($userResult)) {
+					$emailValue = $e["uemail"];
+					$protraitName = $e["protraitPath"];
+				}
+				if($protraitName == ""){
+					$protraitName = "bg1.jpg";
+				}
+				$protraitPath = "http://127.0.0.1/Images/".$protraitName;
+				
 				echo "<div style=\"background-color:#d1e3db;\">
 						<figure style=\"display: block; margin:Auto;\">
-							<img src=\"http://127.0.0.1/Images/bg1.jpg\" width=\"40\" height=\"40\">
+							<img src=\"$protraitPath\" width=\"40\" height=\"40\">
 						</figure>
 						<a href=\"http://127.0.0.1/Main/Profile.php?profileName=".$row['uname']."\" style=\"font-size: 20px;\">".$row['uname']."</a>
 						<p style=\"padding: 0 10px;\">".$row['description']."</p>

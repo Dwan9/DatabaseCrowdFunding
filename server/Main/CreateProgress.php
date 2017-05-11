@@ -5,10 +5,11 @@
 		echo "<script>location.href='../index.html';</script>";
 	}
 	require_once("../connect.php");
+	$pid = $_GET['pid'];
 ?>
 
 <html>
-<title>Profile</title>
+<title>CreateProgress</title>
   <head>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
@@ -30,15 +31,22 @@
 		</div>
     </div>
 	
-	<!--Form for edited profile information-->
+	<!--  `pid` INT NOT NULL,
+  `version` decimal(10,2) NOT NULL,
+  `description` varchar(40) DEFAULT NULL,
+  `imagePath` varchar(40) DEFAULT NULL,-->
 	<div style = "margin-top:10px; margin-left:10px">
-		<form enctype="multipart/form-data" action="EditProfileUpload.php"
-				method="post">
+		<?php
+			echo "<form enctype=\"multipart/form-data\" action=\"CreateProgressUpload.php?pid=$pid\" method=\"post\">";
+		?>
+		<!--form enctype="multipart/form-data" action="CreateProgressUpload.php?pid=1" method="post"-->
 		<ul>
-			<li><label for="uploadedfile">Select Protrait</label>
+			<li><label for="version">version</label>
+				<input type="text" name="version" placeholder="required" required></li>
+			<li><label for="description">description</label>
+				<input type="text" name="description"></li>
+			<li><label for="uploadedfile">Select Picture</label>
 				<input type="file" size="35" name="uploadedfile" /></li>
-			<li><label for="email">Email</label>
-				<input type="text" name="email"></li>
 			<li><input type="submit" name="submit" value="submit" /></li>
 		</ul>
 		</form>
