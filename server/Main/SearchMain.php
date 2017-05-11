@@ -5,6 +5,11 @@
 		echo "<script>location.href='../index.html';</script>";
 	}
 	require_once("../connect.php");
+	$searchKey = $_POST['keys'];
+	$searchKey_temp = $_GET['keys'];
+	if($searchKey_temp != ""){
+		$searchKey = $searchKey_temp;
+	}
 ?>
 <html>
 <title>Main</title>
@@ -48,14 +53,10 @@
 	
 	<div class="row">
 		<?php
-
-
 			//TODO: all project return here: 
-			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate from project";
-			//布局你来吧
-			// $pledgedProject = "select * from (select distinct pid from sponsor where uname = '$loginname')as T natural join project";
-			// $newProject = "select * from project order by startDate DESC Limit 4"；
-			//
+			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate 
+							  from project
+							  where project.tags like '%$searchKey%' or pname like '%$searchKey%'";
 			$allProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
 			while ($pro = mysqli_fetch_array($allProject)) {
 				$pid = $pro["pid"];
@@ -79,27 +80,6 @@
 					</div>";
 			}
 		?>
-		<!--Template-->
-		<!--div class="col-md-3" id="projectView" style="position:relative width=200px height=400px;">
-			<div id="briefProject">
-				<figure><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="200" height="200"></figure>
-				<h1>Project Name</h1>
-				<p>Some Decription of Project ...</p>
-			</div>
-			<div id="detail">
-				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
-			</div>
-		</div>
-		<div class="col-md-3" id="projectView" style="position:relative width=200px height=400px;">
-			<div id="briefProject">
-				<figure><img src="http://127.0.0.1/Images/projectbgTemp.jpg" width="200" height="200"></figure>
-				<h1>Project Name</h1>
-				<p>Some Decription of Project ...</p>
-			</div>
-			<div id="detail">
-				<button onclick="location.href='http://127.0.0.1/Main/project.html'">Detail</button>
-			</div>
-		</div-->
 	</div>
 	
 </div>
