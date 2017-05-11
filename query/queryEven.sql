@@ -11,8 +11,8 @@ group by uname
 having c>3) as T;
 
 -- query6
-insert into project(`pid`, `uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`)
-values (NULL, 'Duan', current_timestamp, '2018-01-01', 10000, 50000, 0, 'New Jazz Album', 'FUNDING');
+#insert into project(`pid`, `uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`)
+#values (NULL, 'Duan', current_timestamp, '2018-01-01', 10000, 50000, 0, 'New Jazz Album', 'FUNDING');
 
 -- query8
 -- insert new sponsor->increase curAmount
@@ -22,14 +22,11 @@ drop trigger if exists updatePamount;
 /
 create trigger updatePamount after insert on sponsor
 for each row begin
-if new.amount!=null then 
 update project
 set project.curAmount = project.curAmount + new.amount
 where project.pid=new.pid;
-end if;
 end;
 /
-
 -- reach minAmount->project.status=FUNDED
 -- reach maxAmount->project.status=FULL
 
@@ -38,14 +35,27 @@ drop trigger if exists updatePstatus;
 /
 create trigger updatePstatus before update on project
 for each row begin
-if new.curAmount>new.minAmount and new.`status`='FUNDING' then 
+if new.curAmount>=new.minAmount and new.`status`='FUNDING' then 
 set new.`status` = 'FUNDED';
 end if;
-if new.curAmount>new.maxAmount and new.`status`='FUNDED' then 
+if new.curAmount>=new.maxAmount and new.`status`='FUNDED' then 
 set new.`status` = 'FULL';
 end if;
 end;
 /
+
+delimiter /
+drop trigger if exists updateSponsorStatus;
+/
+create trigger updateSponsorStatus before update on project
+for each row 
+begin
+if new.`status` = 'FUNDED' then
+	 update sponsor
+     set pledgeStatus = 'CHARGED'
+     where sponsor.pid = new.pid;
+end if;
+end;
 
 -- event current day=endDate and status=FUNDING->stauts=FAIL
 SET GLOBAL event_scheduler = 1; 
