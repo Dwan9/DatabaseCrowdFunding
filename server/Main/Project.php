@@ -234,7 +234,17 @@ window.onload = function ()
 					echo "<button onclick=\"location.href='http://127.0.0.1/Main/Pledge.php?pid=$pid'\">pledge</button>";
 				}
 			?>
-			<button >like</button>
+			<?php
+			if($loginname != $owner){
+					$isLiker = mysqli_query($db, "select * from likes where pid = $pid and uname = '$loginname'");
+					if (mysqli_num_rows($isLiker)==0) {
+						echo "<button onclick=\"location.href='Like.php?l=0&pid=$pid'\">Like</button>";
+					}
+					else{
+						echo "<button onclick=\"location.href='Like.php?l=1&pid=$pid'\">Unlike</button>";
+					}
+				}
+			?>
 			
 			<!--Progress Content-->
 		<?php
