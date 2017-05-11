@@ -6,8 +6,10 @@
 	}
 	$pid = $_GET['pid'];
 	$amount = $_POST['number'];
-
 	require_once("../connect.php");
+	$getOwnerName = mysqli_query($db, "select uname from project where pid = $pid") or die(mysqli_error());
+	$ownerName = mysqli_fetch_array($getOwnerName)[0];
+	
 ?>
 
 <html>
@@ -21,6 +23,9 @@
 	$query2 = mysqli_query($db,"update project set curAmount = curAmount + $amount where pid = $pid");
 	if ($query1 && $query2){
 		echo "Your pledge has been updated. Appreciated again.";
+		mysqli_query($db,"insert into notification values ($pid, '$ownerName', \"$loginname has pledged your project!\");");
+		//echo mysqli_error($db);
+		mysqli_query($db,"update project set curAmount = curAmount + $amount where pid = $pid");
 		echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/project.php?pid=$pid\">";
 	}
 	else echo "Error<br>".mysqli_error($db);
@@ -36,6 +41,7 @@
 					  ($pid, '$loginname', $amount, '$status');");
 	if($inserting) {
 			echo "Your pledge has been submitted, Thank you for your Donation.";
+			mysqli_query($db,"insert into notification values ($pid, '$ownerName', \"$loginname has pledged your project!\");");
 			echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/project.php?pid=$pid\">";
 		}
 		else echo "Error<br>".mysqli_error($db);}
