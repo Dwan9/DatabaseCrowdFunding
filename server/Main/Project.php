@@ -59,6 +59,75 @@
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
     <link href="http://127.0.0.1/css/styles.css" rel="stylesheet">
   </head>
+<style> 
+body,div,ul,li,p{margin:0;padding:0;}
+body{color:#666;font:12px/1.5 Arial;}
+ul{list-style-type:none;}
+#star{position:relative;width:600px;margin:10px auto;}
+#star ul,#star span{float:left;display:inline;height:19px;line-height:19px;}
+#star ul{margin:0 10px;}
+#star li{float:left;width:24px;cursor:pointer;text-indent:-9999px;background:url(images/star.png) no-repeat;}
+#star strong{color:#f60;padding-left:10px;}
+#star li.on{background-position:0 -28px;}
+#star p{position:absolute;top:20px;width:159px;height:60px;display:none;background:url(images/icon.gif) no-repeat;padding:7px 10px 0;}
+#star p em{color:#f60;display:block;font-style:normal;}
+</style>
+<script type="text/javascript"> 
+window.onload = function ()
+{
+ var oStar = document.getElementById("star");
+ var aLi = oStar.getElementsByTagName("li");
+ var oUl = oStar.getElementsByTagName("ul")[0];
+ var oSpan = oStar.getElementsByTagName("span")[1];
+ var oP = oStar.getElementsByTagName("p")[0];
+ var i = iScore = iStar = 0;
+ var aMsg = [
+    "Very dissatisfied|This project is a waste of money.",
+    "Dissatisfied|The project did not come out as expected.",
+    "So-so|Mediocrely carried out project.",
+    "Satisfied|The project came out as expected.",
+    "Very ssatisfied|Impressive project."
+    ]
+ for (i = 1; i <= aLi.length; i++)
+ {
+  aLi[i - 1].index = i;
+  //鼠标移过显示分数
+  aLi[i - 1].onmouseover = function ()
+  {
+   fnPoint(this.index);
+   //浮动层显示
+   oP.style.display = "block";
+   //计算浮动层位置
+   oP.style.left = oUl.offsetLeft + this.index * this.offsetWidth - 104 + "px";
+   //匹配浮动层文字内容
+   oP.innerHTML = "<em><b>" + this.index + "</b> 分 " + aMsg[this.index - 1].match(/(.+)\|/)[1] + "</em>" + aMsg[this.index - 1].match(/\|(.+)/)[1]
+  };
+  //鼠标离开后恢复上次评分
+  aLi[i - 1].onmouseout = function ()
+  {
+   fnPoint();
+   //关闭浮动层
+   oP.style.display = "none"
+  };
+  //点击后进行评分处理
+  aLi[i - 1].onclick = function ()
+  {
+   iStar = this.index;
+   document.getElementById("mark").value = iStar;
+   document.getElementById('rateSubmit').disabled=false;
+   oP.style.display = "none";
+   oSpan.innerHTML = "<strong>" + (this.index) + " 分</strong> (" + aMsg[this.index - 1].match(/\|(.+)/)[1] + ")"
+  }
+ }
+ //评分处理
+ function fnPoint(iArg)
+ {
+  //分数赋值
+  iScore = iArg || iStar;
+  for (i = 0; i < aLi.length; i++) aLi[i].className = i < iScore ? "on" : "";
+ }
+};
+</script>
 	
 	<!-- bar -->
 	<div style="background-color:#808B96;">
@@ -101,7 +170,16 @@
 			<!--Project Content-->
 			<?php
 				if($loginname != $owner && ($thisStatus=="FUNDED" || $thisStatus=="FULL")){
-					echo"<button>rate</button>";
+					echo"<div id=\"star\"><span>Rate here</span><ul>
+ <li><a href=\"javascript:;\">1</a></li>
+ <li><a href=\"javascript:;\">2</a></li>
+ <li><a href=\"javascript:;\">3</a></li>
+ <li><a href=\"javascript:;\">4</a></li>
+ <li><a href=\"javascript:;\">5</a></li>
+ </ul><span></span><p></p></div>
+<form method=\"POST\" action=\"http://127.0.0.1/Main/Rate.php?pid=$pid\">
+<input type=\"hidden\" name\"mark\" value='0' id=\"mark\">
+<input type=\"submit\" name=\"submit\" value=\"Rate\" id=\"rateSubmit\" disabled=\"true\"></form>";
 				}
 				if ($loginname == $owner && ($thisStatus=="FUNDED" || $thisStatus=="FULL")){
 					echo "<button onclick=\"location.href='http://127.0.0.1/Main/CreateProgress.php?pid=$pid'\">update a progress</button>";
