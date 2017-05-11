@@ -21,7 +21,7 @@
   </head>
 	<!-- bar -->
 	<div "col-md-12 barContainer" id="barView">
-		<div id="navBar">
+		<div id="navBar" style="background-color:#808B96;">
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
@@ -37,9 +37,7 @@
 <div>
     <div>
 		<div>
-    			<ul class="row" style="background-color: #90caaf; list-style-type: none;">
-					<li class="col-md-1" style="margin-top:5px"><button id="recent" class="btn-link"><span>Feed</span></button></li>     
-					<li class="col-md-1" style="margin-top:5px"><button class="btn-link"><span>Favorite</span></button></li>
+    			<ul class="row" style="background-color: #ABB2B9; list-style-type: none;">
 					<li style="margin-left:250px; margin-top:5px" class="col-md-3">
 						<form name="search" action="SearchMain.php" method="post">
 							<input type="text" name="keys" onblur="AntiSqlInject(this)"

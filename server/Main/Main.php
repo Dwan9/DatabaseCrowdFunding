@@ -16,7 +16,7 @@
   </head>
 	<!-- bar -->
 	<div "col-md-12 barContainer" id="barView">
-		<div id="navBar">
+		<div id="navBar" style="background-color:#808B96;">
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
@@ -41,9 +41,9 @@
 <div>
     <div>
 		<div>
-    			<ul class="row" style="background-color: #90caaf; list-style-type: none;">
+    			<ul class="row" style="background-color: #ABB2B9  ; list-style-type: none;">
 					<!--li class="col-md-1" style="margin-top:5px"><button id="recent" class="btn-link"><span>Feed</span></button></li-->    
-					<li style="margin-left:250px; margin-top:5px" class="col-md-3">
+					<li style="margin-left:450px; margin-top:5px" class="col-md-3">
 						<form name="search" action="SearchMain.php" method="post">
 							<input type="text" name="keys" onblur="AntiSqlInject(this)"
 									style="height: 20px;" placeholder="required" required>
@@ -54,10 +54,48 @@
 		</div>
 	</div>
 	
+	<p style="padding-top:20px; background-color:#CCD1D1;">You May like:</p>
 	<div class="row">
 		<?php
-
-
+			$searchProject = "select project.pid, pname, status, tags, curAmount, minAmount, endDate, imagePath
+							  from follower, project where follower.funame = 'dua' and project.uname = follower.uname
+								union
+							select project.pid, pname, status, tags, curAmount, minAmount, endDate, imagePath
+							from likes, follower, project
+							where follower.funame = 'dua' and likes.uname = follower.uname and project.pid = likes.pid;";
+			$feedProject = mysqli_query($db,$searchProject) or die(mysqli_error());
+			while ($pro = mysqli_fetch_array($feedProject)) {
+				$pid = $pro["pid"];
+				$pname = $pro["pname"];
+				$tags = $pro["tags"];
+				$status = $pro["status"];
+				$curAmount = $pro["curAmount"];
+				$minAmount = $pro["minAmount"];
+				$endDate = $pro["endDate"];
+				$imageName = $pro["imagePath"];
+				if($imageName == ""){
+					$imageName = "projectbgTemp.jpg";
+				}
+				$imageName = "http://127.0.0.1/Images/Project/" .$imageName; 
+				echo "<div class=\"col-md-3\" style=\"position:relative width=200px height=200px; margin-top:10px;\">
+						<div>
+							<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
+							<h1 style=\"font-size:18px;\">$pname</h1>
+							<p style=\"font-size:12px;\">Status:$status</p>
+							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
+							<h3 style=\"font-size:10px;\">DUE $endDate</h3>
+							<p>$tags</p>
+						</div>
+						<div>
+							<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
+						</div>
+					</div>";
+			}
+		?>
+	</div>
+	<p style="padding-top:20px; background-color:#CCD1D1;">More Projects:</p>
+	<div class="row">
+		<?php
 			//TODO: all project return here: 
 			$searchProject = "select project.pid, project.pname, status, tags, curAmount, minAmount, endDate, imagePath from project";
 			//
@@ -79,6 +117,7 @@
 						<div>
 							<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 							<h1 style=\"font-size:18px;\">$pname</h1>
+							<p style=\"font-size:12px;\">Status:$status</p>
 							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
 							<h3 style=\"font-size:10px;\">DUE $endDate</h3>
 							<p>$tags</p>

@@ -19,7 +19,7 @@ body,div,ul,li{padding:0; margin:0;}
 
 
 #navBar{ 
-  background-color:#d1e3db;/*为了便于查看区域范围大小，故而加个背景色*/ 
+  background-color:#566573;/*为了便于查看区域范围大小，故而加个背景色*/ 
   line-height: 30px;
 } 
 
@@ -32,7 +32,7 @@ body,div,ul,li{padding:0; margin:0;}
   width:100px;
   list-style:none;
 //  float:left;
-  color: #ccc;/*这特喵怎么回事*/
+  color: #566573;/*这特喵怎么回事*/
   line-height: 35px;
   padding: 0 10px;
   display: inline;
@@ -99,7 +99,7 @@ body,div,ul,li{padding:0; margin:0;}
 
 /**********************  for firstpage  **************************/
 .container{
-    background-color: rgba(255,228,196, 0.6);
+    background-color: #566573;
     margin: auto auto;
 }
 

@@ -29,7 +29,7 @@
 	
 	<!-- bar -->
 	<div "col-md-12 barContainer" id="barView">
-		<div id="navBar">
+		<div id="navBar" style="background-color:#808B96;">
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
@@ -79,7 +79,7 @@
 		$searchProject = "select pid, pname, status, tags, imagePath from project where uname = '$profileName'";
 		$ownProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
 		if(mysqli_num_rows($ownProject) != 0){
-			echo "<p style=\"padding-top:20px; background-color:#90caaf;\">As Owner</p>";
+			echo "<p style=\"padding-top:20px; background-color:#ABB2B9;\">As Owner</p>";
 			echo "<div class=\"row\">";
 			while ($pro = mysqli_fetch_array($ownProject)) {
 				$pid = $pro["pid"];
@@ -111,7 +111,7 @@
 							where sponsor.pid = project.pid and sponsor.uname = '$profileName';";
 		$sponsorProject = mysqli_query($db,$searchProject) or die(mysqli_error());
 		if(mysqli_num_rows($sponsorProject) != 0){
-			echo "<p style=\"padding-top:20px; background-color:#90caaf;\">As Sponsor</p>";
+			echo "<p style=\"padding-top:20px; background-color:#ABB2B9;\">As Sponsor</p>";
 			echo "<div class=\"row\">";
 			while ($pro = mysqli_fetch_array($sponsorProject)) {
 				$pid = $pro["pid"];
@@ -143,7 +143,7 @@
 							where likes.uname = '$profileName' and likes.pid = project.pid;";
 		$likeProject = mysqli_query($db,$searchProject) or die(mysqli_error());
 		if(mysqli_num_rows($likeProject) != 0){
-			echo "<p style=\"padding-top:20px; background-color:#90caaf;\">I Like</p>";
+			echo "<p style=\"padding-top:20px; background-color:#ABB2B9;\">I Like</p>";
 			echo "<div class=\"row\">";
 			while ($pro = mysqli_fetch_array($likeProject)) {
 				$pid = $pro["pid"];

@@ -61,8 +61,8 @@
   </head>
 	
 	<!-- bar -->
-	<div "col-md-12 barContainer" id="barView">
-		<div id="navBar">
+	<div style="background-color:#808B96;">
+		<div id="navBar" style="background-color:#808B96;">
 				<ul>
 					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
@@ -75,8 +75,8 @@
     </div>
 	
 <div>
-	<div class="row" style="background-color:#bbb;">
-		<div class="col-md-2" style="background-color:#ccc;">
+	<div class="row" style="background-color:#ABB2B9;">
+		<div class="col-md-2" style="background-color:#808B96;">
 			<div >
 			<!--user of the project-->
 			<figure style="display: block; margin-left:10px">
@@ -84,7 +84,8 @@
 					echo "<img src=\"$ownerProtraitPath\" width=\"180\" height=\"180\">";
 				?>
 			</figure>
-			<a style="margin-left:10px" href="http://127.0.0.1/Main/Profile.php?profileName=<?php echo $owner;?>"><?php echo $owner;?></a>
+			<a style="margin-left:10px; font-size:18px; color:black;" 
+				href="http://127.0.0.1/Main/Profile.php?profileName=<?php echo $owner;?>"><?php echo $owner;?></a>
 			<div style="margin-left:10px" class="row">
 			<?php
 				if($loginname != $owner){
@@ -96,7 +97,7 @@
 		</div>
 		
 		
-		<div class="col-md-10" style="background-color:#bbb; margin:Auto;">
+		<div class="col-md-10" style="background-color:#ABB2B9; margin:Auto;">
 			<!--Project Content-->
 			<?php
 				if($loginname != $owner && ($thisStatus=="FUNDED" || $thisStatus=="FULL")){
