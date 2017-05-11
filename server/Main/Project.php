@@ -144,7 +144,7 @@
 			}
 			$checkIfPledge = mysqli_query($db,"select * from sponsor where pid=$pid and uname = '$loginname'") or die(mysqli_error());
 			$checkIfComment = mysqli_query($db,"select * from comment where pid=$pid and uname = '$loginname' and version = $version") or die(mysqli_error());
-			if (mysqli_num_rows($checkIfPledge)>0 and mysqli_num_rows($checkIfComment)==0){
+			if ((mysqli_num_rows($checkIfPledge)>0) && (mysqli_num_rows($checkIfComment)==0)){
 				echo "<div><form action='sendComment.php?version=$version&pid=$pid' method='POST' id = 'commentForm'><textarea style='margin-left:50px' name='description' rows=4' cols='50' placeholder='Leave a Command here:' form='commentForm' required></textarea><input style=\"margin-left:50px\" type=\"submit\" name=\"submit\" value=\"Submit\"></form></div>";
 			}
 		?>
