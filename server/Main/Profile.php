@@ -26,11 +26,11 @@
 	<div "col-md-12 barContainer" id="barView">
 		<div id="navBar">
 				<ul>
-					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.html'">
+					<li><button id="Main" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Main.php'">
 						<span>Projects</span></button></li>
-					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.html?profileName=<?php echo $loginname ?>'">
+					<li><button id="profile" class="btn-link" onclick="location.href='http://127.0.0.1/Main/Profile.php?profileName=<?php echo $loginname ?>'">
 						<span><?php echo $loginname?></span></button></li>
-					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/index.html'">
+					<li><button id="Log_out" class="btn-link" style="float: right;" onclick="location.href='http://127.0.0.1/logout.php'">
 						<span>Log out</span></button></li>
 				</ul>
 		</div>
@@ -49,7 +49,7 @@
 					<h1 style="font-size:20px; margin-top:5px;"><?php echo $profileName ?></h1>
 					<?php
 						if($loginname == $profileName){
-						echo "<a href=\"http://127.0.0.1/Main/EditProfile.html\" style=\"font-size: 15px;\">Edit My Profile</a>";
+						echo "<a href=\"http://127.0.0.1/Main/EditProfile.php\" style=\"font-size: 15px;\">Edit My Profile</a>";
 						}
 					?>
 				</div>
@@ -57,7 +57,7 @@
 				<p class="col-md-2" style="margin-top:50px;"><?php $userDescrib ?></p>
 				<?php
 					if($loginname == $profileName){
-						echo "<a href=\"http://127.0.0.1/Main/EditProfile.html\" style=\"font-size: 15px;\">Create New Project</a>";
+						echo "<a href=\"http://127.0.0.1/Main/EditProfile.php\" style=\"font-size: 15px;\">Create New Project</a>";
 					}
 				?>
 			</div>
@@ -87,7 +87,7 @@
 						<p>$tags</p>
 					  </div>
 					<div id=\"detail\">
-					<button onclick=\"location.href='http://127.0.0.1/Main/project.html?pid=$pid'\">Detail</button>
+					<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 					</div>
 					</div>";
 			}
@@ -114,7 +114,7 @@
 						<p>$tags</p>
 					  </div>
 					<div id=\"detail\">
-					<button onclick=\"location.href='http://127.0.0.1/Main/project.html?pid=$pid'\">Detail</button>
+					<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 					</div>
 					</div>";
 			}
@@ -141,7 +141,7 @@
 						<p>$tags</p>
 					  </div>
 					<div id=\"detail\">
-					<button onclick=\"location.href='http://127.0.0.1/Main/project.html?pid=$pid'\">Detail</button>
+					<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 					</div>
 					</div>";
 			}
