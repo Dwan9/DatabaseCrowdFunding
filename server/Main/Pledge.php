@@ -77,7 +77,7 @@
 		</div>
     </div>
 	<div style="margin-top:20px">
-		<p style="font-size:25px;">Pledge to <?php echo $maxAmount;?></p>
+		<p style="font-size:25px;">Pledge to <?php echo $pname;?></p>
 		<form name="login" action="http://127.0.0.1/Main/PledgeConfirm.php?pid=<?php echo $pid;?>" method="post">
 		<ul>
 			<li><label style="margin-left:50px" for="number">Amount To Pledge?</label>

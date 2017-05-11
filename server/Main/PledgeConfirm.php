@@ -17,12 +17,12 @@
 
 	$ifSponsored = mysqli_query($db,"select * from sponsor where pid = $pid and uname = '$loginname'");
 	if (mysqli_num_rows($ifSponsored)>0){
-	$query = mysqli_query($db,"update sponsor set amount = amount + $amount");
+	$query = mysqli_query($db,"update sponsor set amount = amount + $amount where pid = $pid and uname = '$loginname'");
 	if ($query){
 		echo "Your pledge has been updated. Appreciated again.";
 		echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/project.php?pid=$pid\">";
 	}
-	else echo "Error".$query."<br>".mysqli_error($db);
+	else echo "Error<br>".mysqli_error($db);
 }
 	else{
 
@@ -37,7 +37,7 @@
 			echo "Your pledge has been submitted, Thank you for your Donation.";
 			echo "<meta http-equiv=\"refresh\" content=\"3; url=http://127.0.0.1/Main/project.php?pid=$pid\">";
 		}
-		else echo "Error".$query."<br>".mysqli_error($db);}
+		else echo "Error<br>".mysqli_error($db);}
 
 ?>
 </body>
