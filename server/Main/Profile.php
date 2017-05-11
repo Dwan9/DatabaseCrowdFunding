@@ -76,7 +76,7 @@
 	
 	<?php
 		//project list as owner		
-		$searchProject = "select pid, pname, status, tags, imagePath from project where uname = '$profileName'";
+		$searchProject = "select pid, pname, status, tags, imagePath, curAmount, minAmount, maxAmount from project where uname = '$profileName'";
 		$ownProject =  mysqli_query($db,$searchProject) or die(mysqli_error());
 		if(mysqli_num_rows($ownProject) != 0){
 			echo "<p style=\"padding-top:20px; background-color:#ABB2B9;\">As Owner</p>";
@@ -86,27 +86,43 @@
 				$pname = $pro["pname"];
 				$tags = $pro["tags"];
 				$status = $pro["status"];
+				$curAmount = $pro["curAmount"];
+				$minAmount = $pro["minAmount"];
+				$maxAmount = $pro["maxAmount"];
 				$imageName = $pro["imagePath"];
 				if($imageName == ""){
 					$imageName = "projectbgTemp.jpg";
 				}
 				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
+				$ratecur = (float)$curAmount/(float)$maxAmount*100;
+				$ratemin = (float)$minAmount/(float)$maxAmount*100 - $ratecur;
+				if($ratemin < 0){
+					$ratemin = 0;
+				}
+				$ratemax = 100-$ratemin-$ratecur;
 				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
 					  <div id=\"briefProject\">
 						<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 						<h1 style=\"font-size:18px;\">$pname</h1>
 						<p>Current Status: $status</p>
+							<div>
+								<div class=\"progress\" style=\"width:200px\">
+								<div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" style=\"width:$ratecur%\"></div>
+								<div class=\"progress-bar progress-bar-warning\" role=\"progressbar\" style=\"width:$ratemin%\"></div>
+								<div class=\"progress-bar progress-bar-success\" role=\"progressbar\" style=\"width:$ratemax%\"></div>
+							</div>
+							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
 						<p>$tags</p>
 					  </div>
 					<div id=\"detail\">
 					<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 					</div>
-					</div>";
+					</div></div>";
 			}
 			echo "</div>";
 		}
 		//sponsor
-		$searchProject = "select project.pid, project.pname, status, tags , imagePath
+		$searchProject = "select project.pid, project.pname, status, tags , imagePath, curAmount, minAmount, maxAmount
 							from project, sponsor
 							where sponsor.pid = project.pid and sponsor.uname = '$profileName';";
 		$sponsorProject = mysqli_query($db,$searchProject) or die(mysqli_error());
@@ -118,27 +134,43 @@
 				$pname = $pro["pname"];
 				$tags = $pro["tags"];
 				$status = $pro["status"];
+				$curAmount = $pro["curAmount"];
+				$minAmount = $pro["minAmount"];
+				$maxAmount = $pro["maxAmount"];
 				$imageName = $pro["imagePath"];
 				if($imageName == ""){
 					$imageName = "projectbgTemp.jpg";
 				}
 				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
+				$ratecur = (float)$curAmount/(float)$maxAmount*100;
+				$ratemin = (float)$minAmount/(float)$maxAmount*100 - $ratecur;
+				if($ratemin < 0){
+					$ratemin = 0;
+				}
+				$ratemax = 100-$ratemin-$ratecur;
 				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
 					  <div id=\"briefProject\">
 						<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 						<h1 style=\"font-size:18px;\">$pname</h1>
 						<p>Current Status: $status</p>
+							<div>
+								<div class=\"progress\" style=\"width:200px\">
+								<div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" style=\"width:$ratecur%\"></div>
+								<div class=\"progress-bar progress-bar-warning\" role=\"progressbar\" style=\"width:$ratemin%\"></div>
+								<div class=\"progress-bar progress-bar-success\" role=\"progressbar\" style=\"width:$ratemax%\"></div>
+							</div>
+							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
 						<p>$tags</p>
 					  </div>
 					<div id=\"detail\">
 					<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 					</div>
-					</div>";
+					</div></div>";
 			}
 			echo "</div>";
 		}
 		//likes
-		$searchProject = "select project.pid, project.pname, status, tags , imagePath
+		$searchProject = "select project.pid, project.pname, status, tags , imagePath, curAmount, minAmount, maxAmount
 							from likes, project
 							where likes.uname = '$profileName' and likes.pid = project.pid;";
 		$likeProject = mysqli_query($db,$searchProject) or die(mysqli_error());
@@ -150,22 +182,38 @@
 				$pname = $pro["pname"];
 				$tags = $pro["tags"];
 				$status = $pro["status"];
+				$curAmount = $pro["curAmount"];
+				$minAmount = $pro["minAmount"];
+				$maxAmount = $pro["maxAmount"];
 				$imageName = $pro["imagePath"];
 				if($imageName == ""){
 					$imageName = "projectbgTemp.jpg";
 				}
 				$imageName = "http://127.0.0.1/Images/Project/" .$imageName;
+				$ratecur = (float)$curAmount/(float)$maxAmount*100;
+				$ratemin = (float)$minAmount/(float)$maxAmount*100 - $ratecur;
+				if($ratemin < 0){
+					$ratemin = 0;
+				}
+				$ratemax = 100-$ratemin-$ratecur;
 				echo "<div class=\"col-md-3\" id=\"projectView\" style=\"position:relative width=200px height=400px;\">
 					  <div id=\"briefProject\">
 						<figure><img src=\"$imageName\" width=\"200\" height=\"200\"></figure>
 						<h1 style=\"font-size:18px;\">$pname</h1>
 						<p>Current Status: $status</p>
+							<div>
+								<div class=\"progress\" style=\"width:200px\">
+								<div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" style=\"width:$ratecur%\"></div>
+								<div class=\"progress-bar progress-bar-warning\" role=\"progressbar\" style=\"width:$ratemin%\"></div>
+								<div class=\"progress-bar progress-bar-success\" role=\"progressbar\" style=\"width:$ratemax%\"></div>
+							</div>
+							<h2 style=\"font-size:10px;\">$$curAmount/$$minAmount</h2>
 						<p>$tags</p>
 					  </div>
 					<div id=\"detail\">
 					<button onclick=\"location.href='http://127.0.0.1/Main/project.php?pid=$pid'\">Detail</button>
 					</div>
-					</div>";
+					</div></div>";
 			}
 			echo "</div>";
 		}

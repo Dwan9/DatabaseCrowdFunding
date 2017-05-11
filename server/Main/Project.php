@@ -120,7 +120,22 @@
 				echo "</ul>";
 			?>
 			<p>State: <?php echo $thisStatus;?></p>
-			<p>FUNDING: <?php echo "$$curAmount/$$minAmount:$$maxAmount";?></p>
+			<p>FUNDING:</p>
+			<?php
+				$ratecur = (float)$curAmount/(float)$maxAmount*100;
+				$ratemin = (float)$minAmount/(float)$maxAmount*100 - $ratecur;
+				if($ratemin < 0){
+					$ratemin = 0;
+				}
+				$ratemax = 100-$ratemin-$ratecur;
+				echo "		<div>
+								<div class=\"progress\" style=\"width:200px\">
+								<div class=\"progress-bar progress-bar-danger\" role=\"progressbar\" style=\"width:$ratecur%\"></div>
+								<div class=\"progress-bar progress-bar-warning\" role=\"progressbar\" style=\"width:$ratemin%\"></div>
+								<div class=\"progress-bar progress-bar-success\" role=\"progressbar\" style=\"width:$ratemax%\"></div>
+							</div>";
+			?>
+			<p><?php echo "$$curAmount/$$minAmount:$$maxAmount";?></p>
 			<p><?php echo "FROM: $startDate ----- DUE:$endDate";?></p>
 			<figure style="display: block; margin: auto;">
 				<?php
