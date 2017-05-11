@@ -158,7 +158,13 @@ window.onload = function ()
 			<div style="margin-left:10px" class="row">
 			<?php
 				if($loginname != $owner){
-					echo "<button >follow</button>";
+					$isFollower = mysqli_query($db, "select * from follower where uname = '$owner' and funame = '$loginname'");
+					if (mysqli_num_rows($isFollower)==0) {
+						echo "<button onclick=\"location.href='Follow.php?uname=$owner&f=0&pid=$pid'\">Follow</button>";
+					}
+					else{
+						echo "<button onclick=\"location.href='http://127.0.0.1/Main/Follow.php?uname=$owner&f=1&pid=$pid'\">Unfollow</button>";
+					}
 				}
 			?>
 			</div>
