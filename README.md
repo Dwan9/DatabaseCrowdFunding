@@ -1,2 +1,2 @@
 # DatabaseCrowdFunding
-CS6083 Final Project 1
+CS6083 Final Project
