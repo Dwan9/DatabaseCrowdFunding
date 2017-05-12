@@ -22,7 +22,7 @@ INSERT INTO `user` (`uname`, `uemail`, `password`, `credit`) VALUES
 INSERT INTO `project` (`uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`, `tags`) VALUES 
 					('zhu', '2017-04-17', '2017-09-17', 1000, 5000, 50, 'the dog king board game', 'FUNDING', 'strategy game');
 INSERT INTO `project` (`uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`, `tags`) VALUES 
-					('dua', '2017-05-01', '2017-06-30', 10000, 20000, 10500, 'Brooklyn Bridge alblem', 'FUNDED', 'jazz music');
+					('dua', '2017-05-01', '2017-06-30', 10000, 20000, 10500, 'Brooklyn Bridge album', 'FUNDED', 'jazz music');
 INSERT INTO `project` (`uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`, `tags`) VALUES 
 					('zhang', '2016-10-20', '2017-02-20', 5000, 150000, 3000, '2b model', 'FAIL', 'model game');
 INSERT INTO `project` (`uname`, `startDate`, `endDate`, `minAmount`, `maxAmount`, `curAmount`, `pname`, `status`, `tags`) VALUES 
@@ -76,4 +76,4 @@ INSERT INTO `follower` (`uname`, `funame`) VALUES ('zhange', 'hu');
 INSERT INTO `follower` (`uname`, `funame`) VALUES ('han', 'zhang');
 
 -- notification Test
-INSERT INTO `notification` (`uname`, `pid`, `description`) VALUES ('dua', '1000', 'TestTest');
+-- INSERT INTO `notification` (`uname`, `pid`, `description`) VALUES ('dua', '1000', 'TestTest');

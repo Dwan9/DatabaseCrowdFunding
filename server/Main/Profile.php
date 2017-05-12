@@ -60,7 +60,7 @@
 						}
 					?>
 				</div>
-				<small class="col-md-2" style="margin-top:200px;">Content: <?php echo $emailValue ?></small>
+				<small class="col-md-2" style="margin-top:200px;">Contact: <?php echo $emailValue ?></small>
 				<p class="col-md-2" style="margin-top:50px;"><?php $userDescrib ?></p>
 				<?php
 					if($loginname == $profileName){
